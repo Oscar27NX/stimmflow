@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Heilbronner Stimme — KI-gestützte Content-Pipeline für Social-Media-Inhalte">
+  <title>HS Content Pipeline — Heilbronner Stimme</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div id="app">
+
+  <!-- ═══════════════ TOOLBAR ═══════════════ -->
+  <div class="toolbar">
+    <div class="toolbar__logo">
+      <div class="toolbar__logo-icon">HS</div>
+      <span>Content Pipeline</span>
+    </div>
+    <div class="toolbar__title">Heilbronner Stimme — KI-Content-Plattform</div>
+    <div class="toolbar__user">
+      <span>Praktikant:in</span>
+      <div class="toolbar__avatar">PS</div>
+    </div>
+  </div>
+
+  <!-- ═══════════════ RIBBON ═══════════════ -->
+  <nav class="ribbon" role="tablist">
+    <button class="ribbon__tab ribbon__tab--active" data-view="analytics" role="tab" id="tab-analytics">📊 Analytics</button>
+    <div class="ribbon__separator"></div>
+    <button class="ribbon__tab" data-view="sources" role="tab" id="tab-sources">🌐 Quellen &amp; Scraping</button>
+    <div class="ribbon__separator"></div>
+    <button class="ribbon__tab" data-view="personas" role="tab" id="tab-personas">👥 Personas &amp; Filter</button>
+    <div class="ribbon__separator"></div>
+    <button class="ribbon__tab" data-view="copywriter" role="tab" id="tab-copywriter">🤖 KI-Textgenerator</button>
+    <div class="ribbon__separator"></div>
+    <button class="ribbon__tab" data-view="newsletter" role="tab" id="tab-newsletter">📰 Newsletter</button>
+    <div class="ribbon__separator"></div>
+    <button class="ribbon__tab" data-view="output" role="tab" id="tab-output">📤 Content-Ausgabe</button>
+  </nav>
+
+  <!-- ═══════════════ MAIN ═══════════════ -->
+  <div class="main">
+    <aside class="sidebar" id="sidebar"></aside>
+
+    <div class="content">
+
+      <!-- ─────────── VIEW 1: Analytics ─────────── -->
+      <section class="view view--active" id="view-analytics">
+        <div class="content__header">
+          <div>
+            <div class="content__title">Analytics &amp; Übersicht</div>
+            <div class="content__subtitle">Plattform-Performance, Reichweite und Content-Analyse</div>
+          </div>
+          <div class="btn-group">
+            <button class="btn" onclick="showToast('Daten werden aktualisiert…', 'info')">⟳ Aktualisieren</button>
+            <button class="btn btn--primary" onclick="showToast('Report wird exportiert… (Click Dummy)', 'info')">📥 Report exportieren</button>
+          </div>
+        </div>
+
+        <!-- Meta API Notice -->
+        <div class="api-notice">
+          ⚠️ <strong>Meta Graph API:</strong> Reichweite- und Engagement-Daten werden über die Meta Business API abgerufen. Voraussetzung: Business-Account + App-Zugang. Aktueller Status: <strong style="color:var(--success)">Verbunden</strong> (Instagram, Facebook). TikTok: <strong>Creator API v2</strong>.
+        </div>
+
+        <!-- Summary Cards -->
+        <div class="cards-row" id="analytics-cards"></div>
+
+        <!-- Charts Row -->
+        <div class="charts-grid">
+          <!-- Engagement Over Time (Canvas) -->
+          <div class="chart-panel">
+            <div class="chart-panel__header">
+              <span>📈 Engagement-Verlauf (5 Wochen)</span>
+              <span class="badge badge--gray">Wöchentlich</span>
+            </div>
+            <div class="chart-panel__body">
+              <canvas id="engagement-canvas"></canvas>
+            </div>
+          </div>
+
+          <!-- Reach Per Platform (Bar) -->
+          <div class="chart-panel">
+            <div class="chart-panel__header">
+              <span>📊 Reichweite nach Plattform</span>
+              <span class="badge badge--gray">30 Tage</span>
+            </div>
+            <div class="chart-panel__body">
+              <div class="bar-chart" id="bar-chart-reach"></div>
+            </div>
+          </div>
+
+          <!-- Category Distribution (Donut) -->
+          <div class="chart-panel">
+            <div class="chart-panel__header">
+              <span>🏷️ Content-Kategorien</span>
+              <span class="badge badge--gray">Alle Artikel</span>
+            </div>
+            <div class="chart-panel__body" id="donut-chart" style="align-items:center"></div>
+          </div>
+
+          <!-- Platform Follower Stats -->
+          <div class="chart-panel">
+            <div class="chart-panel__header">
+              <span>👥 Follower &amp; Accounts</span>
+              <span class="badge badge--green">Live</span>
+            </div>
+            <div class="chart-panel__body" style="flex-direction:column;align-items:stretch;padding:16px">
+              <div class="stat-row">
+                <span class="stat-row__label">🎵 TikTok Follower</span>
+                <span class="stat-row__value">1.240</span>
+              </div>
+              <div class="stat-row">
+                <span class="stat-row__label">📸 Instagram Follower</span>
+                <span class="stat-row__value">3.820</span>
+              </div>
+              <div class="stat-row">
+                <span class="stat-row__label">📘 Facebook Follower</span>
+                <span class="stat-row__value">5.460</span>
+              </div>
+              <div class="stat-row">
+                <span class="stat-row__label">⌀ Engagement-Rate</span>
+                <span class="stat-row__value" style="color:var(--success)">6.4%</span>
+              </div>
+              <div class="stat-row">
+                <span class="stat-row__label">📈 Wachstum / Woche</span>
+                <span class="stat-row__value" style="color:var(--success)">+2.3%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Top Content Table -->
+        <div class="section-label">Top Content (nach Reichweite)</div>
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>#</th>
+                <th style="min-width:250px">Content</th>
+                <th>Plattform</th>
+                <th>Reichweite</th>
+                <th>Engagement</th>
+              </tr>
+            </thead>
+            <tbody id="top-content-tbody"></tbody>
+          </table>
+        </div>
+
+        <!-- Activity Feed -->
+        <div class="section-label">Letzte Aktivitäten</div>
+        <div class="activity-feed">
+          <div class="activity-feed__title">Aktivitätsprotokoll</div>
+          <div id="analytics-feed"></div>
+        </div>
+      </section>
+
+
+      <!-- ─────────── VIEW 2: Sources ─────────── -->
+      <section class="view" id="view-sources">
+        <div class="content__header">
+          <div>
+            <div class="content__title">Quellen &amp; Scraping</div>
+            <div class="content__subtitle">Heilbronner Webquellen verwalten und gescrapte Artikel einsehen</div>
+          </div>
+          <div class="btn-group">
+            <button class="btn" onclick="showToast('Alle 12 Quellen werden gescraped…', 'info')">⟳ Alle scrapen</button>
+            <button class="btn btn--primary" onclick="showToast('Neue Quelle — Click Dummy', 'info')">+ Quelle hinzufügen</button>
+          </div>
+        </div>
+
+        <div class="calendar-panel">
+          <div class="calendar-panel__header">
+            <span>📅 Content- und Scraping-Kalender (KW 23–24)</span>
+            <div class="calendar-legend">
+              <div class="calendar-legend__item"><div class="calendar-legend__dot" style="background:var(--warning)"></div> Scraping</div>
+              <div class="calendar-legend__item"><div class="calendar-legend__dot" style="background:#1B1B1B"></div> TikTok</div>
+              <div class="calendar-legend__item"><div class="calendar-legend__dot" style="background:#0078D4"></div> Instagram</div>
+              <div class="calendar-legend__item"><div class="calendar-legend__dot" style="background:#107C10"></div> Facebook</div>
+              <div class="calendar-legend__item"><div class="calendar-legend__dot" style="background:#6C3483"></div> Newsletter</div>
+            </div>
+          </div>
+          <div class="calendar-grid" id="calendar-grid">
+            <!-- Rendered by JS -->
+          </div>
+        </div>
+
+        <div class="section-label">Konfigurierte Quellen (12)</div>
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Quelle</th>
+                <th>URL</th>
+                <th>Zuletzt gescraped</th>
+                <th>Artikel</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody id="sources-tbody"></tbody>
+          </table>
+        </div>
+
+        <div class="section-label">Gescrapte Artikel</div>
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th style="min-width:350px">Artikel</th>
+                <th>Quelle</th>
+                <th>Kategorie</th>
+                <th>Datum</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody id="articles-tbody"></tbody>
+          </table>
+        </div>
+      </section>
+
+
+      <!-- ─────────── VIEW 3: Personas ─────────── -->
+      <section class="view" id="view-personas">
+        <div class="content__header">
+          <div>
+            <div class="content__title">Personas &amp; Filter</div>
+            <div class="content__subtitle">Zielgruppen-Profile und Artikel-Relevanz</div>
+          </div>
+          <div class="btn-group">
+            <button class="btn" onclick="selectedPersonaId=null; renderPersonas();">Auswahl aufheben</button>
+            <button class="btn btn--primary" onclick="showToast('Neue Persona — Click Dummy', 'info')">+ Persona erstellen</button>
+          </div>
+        </div>
+
+        <div class="section-label">Zielgruppen-Personas</div>
+        <div class="persona-grid" id="persona-grid"></div>
+
+        <div class="section-label">Artikel-Relevanz nach Persona</div>
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th style="min-width:250px">Artikel</th>
+                <th>Kategorie</th>
+                <th>🎓 Gen-Z</th>
+                <th>💼 Professional</th>
+                <th>🏠 Lokal</th>
+              </tr>
+            </thead>
+            <tbody id="persona-articles-tbody"></tbody>
+          </table>
+        </div>
+      </section>
+
+
+      <!-- ─────────── VIEW 4: AI Copywriter ─────────── -->
+      <section class="view" id="view-copywriter">
+        <div class="content__header">
+          <div>
+            <div class="content__title">KI-Textgenerator</div>
+            <div class="content__subtitle">KI-gestützte Texterstellung mit Agentic Workflow</div>
+          </div>
+          <div class="btn-group">
+            <button class="btn" onclick="toggleAgenticPanel()">🔍 Workflow anzeigen</button>
+            <button class="btn" onclick="showToast('Chat gelöscht — Click Dummy', 'info')">🗑️ Chat leeren</button>
+            <button class="btn btn--primary" onclick="handleGenerate()">⚡ Generieren</button>
+          </div>
+        </div>
+
+        <div class="chat-layout">
+          <!-- Chat Panel -->
+          <div class="chat-panel">
+            <div class="chat-panel__header">💬 Chat mit KI-Assistent</div>
+            <div class="chat-messages" id="chat-messages"></div>
+            <div class="chat-input">
+              <input type="text" class="chat-input__field" placeholder="Nachricht eingeben…" onkeydown="if(event.key==='Enter'){showToast('Eingabe simuliert — Click Dummy', 'info')}">
+              <button class="btn btn--primary" onclick="showToast('Eingabe simuliert — Click Dummy', 'info')">Senden</button>
+            </div>
+          </div>
+
+          <!-- Output Preview -->
+          <div class="output-panel">
+            <div class="output-panel__header">📄 Generierte Vorschau</div>
+            <div class="output-tabs">
+              <button class="output-tab output-tab--active" data-platform="tiktok">🎵 TikTok</button>
+              <button class="output-tab" data-platform="instagram">📸 Instagram</button>
+              <button class="output-tab" data-platform="facebook">📘 Facebook</button>
+            </div>
+            <div class="output-preview" id="output-preview-content"></div>
+          </div>
+        </div>
+
+        <!-- Agentic Workflow Panel (collapsible) -->
+        <div class="agentic-panel" id="agentic-panel">
+          <div class="agentic-panel__header" onclick="toggleAgenticPanel()">
+            <span>🔍 Agentic Workflow — Pipeline-Schritte &amp; Quellreferenzen</span>
+            <span style="font-size:11px;color:var(--text-secondary)">▼ Klicken zum Ein-/Ausblenden</span>
+          </div>
+          <div class="agentic-panel__body" id="agentic-steps"></div>
+          <div class="agentic-footer" id="agentic-footer"></div>
+        </div>
+      </section>
+
+
+      <!-- ─────────── VIEW 5: Newsletter ─────────── -->
+      <section class="view" id="view-newsletter">
+        <div class="content__header">
+          <div>
+            <div class="content__title">Newsletter</div>
+            <div class="content__subtitle">Wöchentlicher Newsletter — KI-generiert aus gefilterten Artikeln</div>
+          </div>
+          <div class="btn-group">
+            <button class="btn" onclick="showToast('Vorschau wird aktualisiert…', 'info')">👁️ Vorschau</button>
+            <button class="btn" onclick="handleGenerateNewsletter()">🤖 KI generieren</button>
+            <button class="btn btn--primary" onclick="showToast('Newsletter KW24 versendet — Click Dummy', 'success')">📧 Versenden</button>
+          </div>
+        </div>
+
+        <div class="newsletter-layout">
+          <!-- Config Panel -->
+          <div class="newsletter-config">
+            <div class="newsletter-config__group">
+              <label class="newsletter-config__label">Ausgabe</label>
+              <select>
+                <option selected>KW 24 — 10. Juni 2026</option>
+                <option>KW 23 — 03. Juni 2026</option>
+                <option>KW 22 — 27. Mai 2026</option>
+              </select>
+            </div>
+            <div class="newsletter-config__group">
+              <label class="newsletter-config__label">Frequenz</label>
+              <select>
+                <option selected>Wöchentlich</option>
+                <option>Zweiwöchentlich</option>
+                <option>Monatlich</option>
+              </select>
+            </div>
+            <div class="newsletter-config__group">
+              <label class="newsletter-config__label">Ziel-Persona</label>
+              <select>
+                <option selected>Alle Personas</option>
+                <option>🎓 Gen-Z Student</option>
+                <option>💼 Young Professional</option>
+                <option>🏠 Lokal-Enthusiast</option>
+              </select>
+            </div>
+            <div class="newsletter-config__group">
+              <label class="newsletter-config__label">Betreff</label>
+              <input type="text" value="Heilbronn diese Woche: Weindorf, KI-Konferenz & mehr">
+            </div>
+            <div class="newsletter-config__group">
+              <label class="newsletter-config__label">Max. Artikel</label>
+              <select>
+                <option>3</option>
+                <option selected>5</option>
+                <option>7</option>
+                <option>10</option>
+              </select>
+            </div>
+            <div class="newsletter-config__group">
+              <label class="newsletter-config__label">Tonalität</label>
+              <select>
+                <option>Formell</option>
+                <option selected>Locker-informativ</option>
+                <option>Jugendlich</option>
+              </select>
+            </div>
+            <hr style="border:none;border-top:1px solid var(--border-light);margin:12px 0">
+            <div style="font-size:11px;color:var(--text-secondary)">
+              <strong>Statistik:</strong><br>
+              Abonnenten: 1.240<br>
+              Öffnungsrate: 38%<br>
+              Klickrate: 12%<br>
+              Letzte Ausgabe: KW 23
+            </div>
+          </div>
+
+          <!-- Newsletter Preview -->
+          <div class="newsletter-preview-frame">
+            <div class="newsletter-preview__header-bar">
+              <h2>📰 Heilbronner Stimme — Wochenbriefing</h2>
+              <p>KW 24 · 10. Juni 2026 · Dein wöchentliches Update aus Heilbronn</p>
+            </div>
+            <div class="newsletter-preview__body" id="newsletter-preview-body">
+              <!-- Rendered by JS -->
+            </div>
+            <div class="newsletter-preview__footer">
+              Du erhältst diesen Newsletter, weil du dich angemeldet hast. <span style="color:var(--primary);cursor:pointer" onclick="showToast('Abmelden — Click Dummy', 'info')">Abmelden</span> · Heilbronner Stimme · Kaiserstraße 14, 74072 Heilbronn
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+      <!-- ─────────── VIEW 6: Content Output ─────────── -->
+      <section class="view" id="view-output">
+        <div class="content__header">
+          <div>
+            <div class="content__title">Content-Ausgabe</div>
+            <div class="content__subtitle">Fertige Posts mit Zeitplanung für TikTok, Instagram und Facebook</div>
+          </div>
+          <div class="btn-group">
+            <button class="btn" onclick="showToast('Export als CSV — Click Dummy', 'info')">📥 Exportieren</button>
+            <button class="btn btn--primary" onclick="showToast('Alle Entwürfe veröffentlicht — Click Dummy', 'success')">Alle veröffentlichen</button>
+          </div>
+        </div>
+
+        <!-- Time Slider -->
+        <div class="time-slider-panel">
+          <div class="time-slider-panel__title">🕐 Zeitplanung — Content-Alter und Vorausplanung</div>
+          <div class="time-slider-wrap">
+            <span class="time-slider-wrap__label">-14 Tage</span>
+            <input type="range" id="time-slider" min="-14" max="14" value="0" step="1">
+            <span class="time-slider-wrap__label">+14 Tage</span>
+            <span class="time-slider-wrap__label time-slider-wrap__label--value" id="time-slider-value">Heute</span>
+          </div>
+          <div class="time-markers">
+            <span>-14</span>
+            <span>-7</span>
+            <span style="font-weight:600;color:var(--text-primary)">Heute</span>
+            <span>+7</span>
+            <span>+14</span>
+          </div>
+        </div>
+
+        <!-- Post Previews -->
+        <div class="section-label">Post-Vorschauen</div>
+        <div class="post-preview-grid" id="content-output-grid"></div>
+
+        <!-- Summary -->
+        <div class="section-label">Übersicht</div>
+        <div class="cards-row">
+          <div class="card card--accent">
+            <div class="card__label">TikTok</div>
+            <div class="card__value">3</div>
+            <div class="card__sub">1 veröffentlicht · 1 geplant · 1 Entwurf</div>
+          </div>
+          <div class="card card--success">
+            <div class="card__label">Instagram</div>
+            <div class="card__value">4</div>
+            <div class="card__sub">3 veröffentlicht · 1 Entwurf</div>
+          </div>
+          <div class="card card--warning">
+            <div class="card__label">Facebook</div>
+            <div class="card__value">2</div>
+            <div class="card__sub">1 veröffentlicht · 1 Entwurf</div>
+          </div>
+          <div class="card">
+            <div class="card__label">Newsletter</div>
+            <div class="card__value">4</div>
+            <div class="card__sub">3 versendet · 1 Entwurf (KW24)</div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </div>
+
+  <!-- ═══════════════ STATUS BAR ═══════════════ -->
+  <div class="statusbar">
+    <div class="statusbar__item">
+      <span>📍 Ansicht:</span>
+      <span id="statusbar-view">Analytics & Übersicht</span>
+    </div>
+    <div class="statusbar__item">
+      <span class="status-dot status-dot--green"></span>
+      Pipeline aktiv
+    </div>
+    <div class="statusbar__spacer"></div>
+    <div class="statusbar__item">Quellen: 12</div>
+    <div class="statusbar__item">Artikel: 119</div>
+    <div class="statusbar__item">Meta API: ✓</div>
+    <div class="statusbar__item">v2.0 Click Dummy</div>
+  </div>
+
+</div>
+
+<!-- ═══════════════ MODAL ═══════════════ -->
+<div class="modal-overlay" id="modal-overlay">
+  <div class="modal">
+    <div class="modal__header">
+      <span id="modal-title">Artikeldetails</span>
+      <button class="modal__close" id="modal-close">✕</button>
+    </div>
+    <div class="modal__body" id="modal-body"></div>
+    <div class="modal__footer">
+      <button class="btn" onclick="closeModal()">Schließen</button>
+      <button class="btn" onclick="showToast('Artikel an Newsletter hinzugefügt', 'success'); closeModal();">📰 Newsletter</button>
+      <button class="btn btn--primary" onclick="showToast('Artikel an KI-Textgenerator gesendet', 'success'); closeModal();">🤖 An KI senden</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast-container" id="toast-container"></div>
+
+<script src="app.js"></script>
+</body>
+</html>
