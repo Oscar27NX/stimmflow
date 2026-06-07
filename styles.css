@@ -131,6 +131,7 @@ html, body {
 .ribbon {
   display: flex;
   align-items: stretch;
+  justify-content: center;
   background: var(--toolbar-bg);
   border-bottom: 1px solid var(--border);
   padding: 0 var(--sp-3);
@@ -625,6 +626,39 @@ tbody tr { cursor: pointer; }
   opacity: 0.3;
 }
 .img-placeholder > * { position: relative; z-index: 1; }
+
+.img-preview-container {
+  cursor: pointer;
+  position: relative;
+  transition: border-color 0.1s;
+}
+.img-preview-container:hover {
+  border-color: var(--primary) !important;
+}
+.img-upload-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 120, 212, 0.75);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: var(--fs-xs);
+  opacity: 0;
+  transition: opacity 0.15s ease-in-out;
+  z-index: 5;
+}
+.img-preview-container:hover .img-upload-overlay {
+  opacity: 1;
+}
+.image-picker-item {
+  transition: border-color 0.1s, transform 0.1s;
+}
+.image-picker-item:hover {
+  transform: scale(1.02);
+  border-color: var(--primary) !important;
+}
 
 /* --- Chat Interface --- */
 .chat-layout {

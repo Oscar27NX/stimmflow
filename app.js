@@ -31,8 +31,8 @@ const ARTICLES = [
     status: "neu",
     snippet: "Das Heilbronner Weindorf startet am 12. September mit über 30 Weinständen auf dem Kiliansplatz. Neben regionalen Weinen gibt es Live-Musik, Kulinarik und ein Kinderprogramm.",
     body: "Das Heilbronner Weindorf startet am 12. September mit über 30 Weinständen auf dem Kiliansplatz. Neben regionalen Weinen gibt es Live-Musik, Kulinarik und ein Kinderprogramm.\n\nDie Veranstaltung ist in diesem Jahr besonders spannend: Neben den bewährten Winzern aus der Region werden erstmals auch internationale Gäste erwartet. Der Bürgermeister hat eine Eröffnungsrede angekündigt.\n\nÖffnungszeiten: Montag bis Samstag 11:00–23:00 Uhr, Sonntag 11:00–21:00 Uhr. Der Eintritt ist frei.",
-    personas: [1, 2, 3],
-    relevance: { 1: 92, 2: 78, 3: 85 },
+    personas: [1, 2, 3, 4, 5],
+    relevance: { 1: 92, 2: 78, 3: 85, 4: 80, 5: 88 },
     image: "weindorf"
   },
   {
@@ -46,7 +46,7 @@ const ARTICLES = [
     snippet: "Der Ipai Innovation Park Heilbronn veranstaltet eine dreitägige KI-Konferenz mit internationalen Speakern, Workshops und einer Startup-Messe.",
     body: "Der Ipai Innovation Park Heilbronn veranstaltet eine dreitägige KI-Konferenz mit internationalen Speakern, Workshops und einer Startup-Messe.\n\nThemen: Generative KI, Responsible AI, KI in der Medizin. Keynote von Prof. Dr. Weber (TUM). Networking-Abend mit regionalen Unternehmen.\n\nDatum: 20.–22. Juni 2026. Tickets: 49€ (Studierende kostenlos).",
     personas: [1, 2],
-    relevance: { 1: 97, 2: 72, 3: 35 },
+    relevance: { 1: 97, 2: 72, 3: 35, 4: 40, 5: 30 },
     image: "ki-konferenz"
   },
   {
@@ -60,7 +60,7 @@ const ARTICLES = [
     snippet: "Beim Demo Day präsentieren 8 Startups aus dem CampusFounders Accelerator ihre Produkte vor Investoren und der Öffentlichkeit.",
     body: "Beim Demo Day präsentieren 8 Startups aus dem CampusFounders Accelerator ihre Produkte vor Investoren und der Öffentlichkeit.\n\nUnter den Startups: ein HealthTech aus Heilbronn, ein EdTech für Schulen und ein CleanTech-Projekt der TUM-Studierenden. Jury: regionale Venture-Capital-Geber.\n\nDatum: 15. Juni 2026, 18:00 Uhr. Bildungscampus, Gebäude F. Anmeldung erforderlich.",
     personas: [1],
-    relevance: { 1: 95, 2: 58, 3: 30 },
+    relevance: { 1: 95, 2: 58, 3: 30, 4: 35, 5: 15 },
     image: "startup"
   },
   {
@@ -73,8 +73,8 @@ const ARTICLES = [
     status: "verarbeitet",
     snippet: "Nach einem dramatischen 3:2-Sieg im letzten Saisonspiel steigt der SV Heilbronn in die Regionalliga Südwest auf.",
     body: "Nach einem dramatischen 3:2-Sieg im letzten Saisonspiel steigt der SV Heilbronn in die Regionalliga Südwest auf. Trainer Müller: 'Ein historischer Tag für den Verein.'\n\nÜber 4.000 Zuschauer feierten den Aufstieg im Frankenstadion. Die Mannschaft wird in der kommenden Saison auf namhafte Gegner treffen.",
-    personas: [2, 3],
-    relevance: { 1: 30, 2: 88, 3: 70 },
+    personas: [2, 3, 4],
+    relevance: { 1: 30, 2: 88, 3: 70, 4: 75, 5: 60 },
     image: "sport"
   },
   {
@@ -87,8 +87,8 @@ const ARTICLES = [
     status: "neu",
     snippet: "Am Wochenende verwandelt sich das Neckarufer in eine Streetfood-Meile. 25 Foodtrucks servieren Gerichte von Ramen bis Churros.",
     body: "Am Wochenende verwandelt sich das Neckarufer in eine Streetfood-Meile. 25 Foodtrucks servieren Gerichte von Ramen bis Churros.\n\nNeben Essen gibt es DJs, eine Cocktailbar und einen Bereich für Kinder. Der Eintritt ist frei.\n\nDatum: 7.–8. Juni 2026, 11:00–22:00 Uhr.",
-    personas: [1, 2, 3],
-    relevance: { 1: 88, 2: 82, 3: 90 },
+    personas: [1, 2, 3, 4],
+    relevance: { 1: 88, 2: 82, 3: 90, 4: 95, 5: 50 },
     image: "food"
   },
   {
@@ -101,8 +101,8 @@ const ARTICLES = [
     status: "verarbeitet",
     snippet: "Die DHBW Heilbronn öffnet ihre Türen: Vorlesungen, Labor-Führungen und Beratungsgespräche für Studieninteressierte.",
     body: "Die DHBW Heilbronn öffnet ihre Türen: Vorlesungen, Labor-Führungen und Beratungsgespräche für Studieninteressierte.\n\nStudiengänge in Wirtschaft, Informatik und Technik werden vorgestellt. Alumni berichten aus der Praxis. Mensa und Campus-Tour inklusive.\n\nDatum: 14. Juni 2026, 10:00–16:00 Uhr.",
-    personas: [1],
-    relevance: { 1: 80, 2: 40, 3: 25 },
+    personas: [1, 4],
+    relevance: { 1: 80, 2: 40, 3: 25, 4: 90, 5: 35 },
     image: "campus"
   },
   {
@@ -116,7 +116,7 @@ const ARTICLES = [
     snippet: "Der monatliche Connect IT Networking-Abend bringt Entwickler, Gründer und Tech-Begeisterte zusammen.",
     body: "Der monatliche Connect IT Networking-Abend bringt Entwickler, Gründer und Tech-Begeisterte zusammen.\n\nDiesen Monat: Lightning Talks zu Cloud-Native Development und ein Hands-on Workshop zu LLM-APIs. Pizza und Getränke inklusive.\n\nDatum: 19. Juni 2026, 18:30 Uhr. Zukunftspark, Heilbronn.",
     personas: [1, 2],
-    relevance: { 1: 90, 2: 65, 3: 20 },
+    relevance: { 1: 90, 2: 65, 3: 20, 4: 45, 5: 25 },
     image: "tech"
   }
 ];
@@ -128,8 +128,12 @@ const PERSONAS = [
     emoji: "🎓",
     ageRange: "18–24",
     interests: ["Technologie", "Start-ups", "Events", "Kultur", "KI"],
+    massiveInterests: ["Nachtleben", "Festivals", "Social Media", "Klimaschutz"],
+    nicheTopics: ["Virtual Reality", "Clean Energy", "Venture Capital", "E-Sports"],
+    subPersonas: ["Tech-Innovator", "Culture & Party Enthusiast", "Eco-Activist"],
+    instagramAccounts: ["@stimme.next", "@echo24_next", "@stimme.news"],
     platforms: ["TikTok", "Instagram"],
-    description: "Technikaffine Studierende, die sich für Innovation, Nachtleben und kulturelle Events interessieren.",
+    description: "Technikaffine Studierende, die sich für Innovation, Nachtleben, Nachhaltigkeit und kulturelle Events interessieren.",
     followers: "2.4K"
   },
   {
@@ -138,8 +142,12 @@ const PERSONAS = [
     emoji: "💼",
     ageRange: "25–34",
     interests: ["Sport", "Karriere", "Gastronomie", "Lokalnachrichten"],
+    massiveInterests: ["Karriere-Wachstum", "Lokalsport", "Housing", "Healthy Food"],
+    nicheTopics: ["Bouldern & Climbing", "FinTech & Cryptocurrencies", "Craft Beer", "Leadership"],
+    subPersonas: ["Career Climber", "Fitness & Outdoor Fan", "Gastronomy Explorer"],
+    instagramAccounts: ["@stimme.business", "@echo24_sport", "@stimme.news"],
     platforms: ["Instagram", "Facebook"],
-    description: "Berufstätige mit Interesse an lokaler Wirtschaft, Sportevents und der Gastronomieszene.",
+    description: "Berufstätige mit Interesse an lokaler Wirtschaft, Sportevents, Gastroszene und persönlicher Weiterbildung.",
     followers: "5.1K"
   },
   {
@@ -148,9 +156,27 @@ const PERSONAS = [
     emoji: "🏠",
     ageRange: "20–40",
     interests: ["Heimat", "Tradition", "Events", "Natur"],
+    massiveInterests: ["Stadtentwicklung", "Weinkultur", "Lokale Vereine", "Gartenschau"],
+    nicheTopics: ["Weinverkostung", "Heimatgeschichte", "Vogelbeobachtung", "Lokalpolitik"],
+    subPersonas: ["Wine & Dine Connoisseur", "Active Club Member", "Nature & Hiking Fan"],
+    instagramAccounts: ["@lokal_stimme", "@echo24_heilbronn", "@stimme.regio"],
     platforms: ["Facebook", "Instagram"],
-    description: "Menschen, die Heilbronn als Heimat schätzen und sich für lokale Traditionen und Veranstaltungen begeistern.",
+    description: "Menschen, die Heilbronn als Heimat schätzen, sich in Vereinen engagieren und für Weinkultur und Natur begeistern.",
     followers: "8.7K"
+  },
+  {
+    id: 4,
+    name: "Family Manager",
+    emoji: "👨‍👩‍👧‍👦",
+    ageRange: "30–50",
+    interests: ["Familie", "Bildung", "Wohnen", "Freizeit"],
+    massiveInterests: ["Schule & Kita", "Ausflugsziele", "Familienrabatte", "Einkaufen"],
+    nicheTopics: ["Kinderturnen", "Nachhaltiges Spielzeug", "Spielplatz-Scouting", "Schwimmkurse"],
+    subPersonas: ["Helicopter Parent", "Active Budget Parent", "School Council Member"],
+    instagramAccounts: ["@stimme.familie", "@echo24_life", "@stimme.news"],
+    platforms: ["Facebook", "Instagram"],
+    description: "Eltern, die nach Freizeittipps, Schulnachrichten, familienfreundlichen Angeboten und Wohnungsmarkt-News suchen.",
+    followers: "6.3K"
   }
 ];
 
@@ -202,13 +228,7 @@ const ANALYTICS_DATA = {
   platformFollowers: { tiktok: 1240, instagram: 3820, facebook: 5460 },
   platformPosts: { tiktok: 8, instagram: 14, facebook: 9 },
   reach: { tiktok: 12400, instagram: 18600, facebook: 9200 },
-  topContent: [
-    { title: "Foodtruck-Festival am Neckar", platform: "TikTok", reach: 4200, engagement: "8.3%" },
-    { title: "KI-Konferenz am Ipai Campus", platform: "Instagram", reach: 3100, engagement: "5.7%" },
-    { title: "Weindorf 2026 Ankündigung", platform: "Facebook", reach: 2800, engagement: "4.1%" },
-    { title: "CampusFounders Demo Day", platform: "Instagram", reach: 2200, engagement: "6.2%" },
-    { title: "SV Heilbronn Aufstieg", platform: "TikTok", reach: 1900, engagement: "7.8%" }
-  ],
+
   categories: [
     { name: "Events", count: 28, color: "#0078D4" },
     { name: "Technologie", count: 18, color: "#107C10" },
@@ -219,11 +239,28 @@ const ANALYTICS_DATA = {
   ]
 };
 
-const CHAT_MESSAGES = [
-  { sender: "user", text: "Erstelle einen TikTok-Post über das Heilbronner Weindorf für die Zielgruppe Gen-Z Student." },
-  { sender: "bot", text: "Ich habe die gefilterten Daten zum Heilbronner Weindorf analysiert. Basierend auf den Interessen der Persona «Gen-Z Student» (Events, Kultur) habe ich einen kurzen, aktivierenden Post erstellt.\n\nDer Text nutzt TikTok-typische Sprache (POV-Format), Emojis und einen Call-to-Action. Die Zeichenlänge liegt bei 198 — ideal für TikTok-Beschreibungen." },
-  { sender: "user", text: "Kannst du noch eine Version für Instagram machen?" },
-  { sender: "bot", text: "Klar! Für Instagram habe ich einen etwas längeren Post erstellt, der die Persona «Young Professional» anspricht. Der Text ist informativer, enthält Datum und Ort, und nutzt relevante Hashtags für lokale Reichweite.\n\nDie Vorschau findest du im rechten Panel." }
+const TRENDS_DATA = {
+  keywords: [
+    { word: "#Weindorf2026", volume: "High", trend: "up", change: "+140%" },
+    { word: "Ipai Heilbronn", volume: "Medium", trend: "up", change: "+45%" },
+    { word: "Foodtruck Neckar", volume: "High", trend: "down", change: "-12%" },
+    { word: "SV Heilbronn Aufstieg", volume: "High", trend: "up", change: "+90%" },
+    { word: "#Kiliansplatz", volume: "Low", trend: "stable", change: "0%" },
+    { word: "Bildungscampus AI", volume: "Medium", trend: "up", change: "+25%" }
+  ],
+  topics: [
+    { title: "Heilbronner Weindorf Vorbereitungen", platform: "Instagram", reach: "18.4K", engagement: "7.8%" },
+    { title: "IPAI Innovation Park Expansion", platform: "LinkedIn", reach: "12.1K", engagement: "9.2%" },
+    { title: "Neckar-Ufer Food & Drinks", platform: "TikTok", reach: "22.5K", engagement: "11.4%" },
+    { title: "SV Heilbronn Regionalliga-Feier", platform: "Instagram", reach: "14.2K", engagement: "8.5%" }
+  ]
+};
+
+const PERSONA_ANALYTICS_DATA = [
+  { name: "Gen-Z Student", emoji: "🎓", reachShare: "28%", topInterest: "Technologie / Events", engagement: "8.2%" },
+  { name: "Young Professional", emoji: "💼", reachShare: "34%", topInterest: "Karriere / Sport", engagement: "6.8%" },
+  { name: "Lokal-Enthusiast", emoji: "🏠", reachShare: "25%", topInterest: "Heimat / Weinkultur", engagement: "5.4%" },
+  { name: "Family Manager", emoji: "👨‍👩‍👧‍👦", reachShare: "13%", topInterest: "Freizeit / Bildung", engagement: "7.1%" }
 ];
 
 const AGENTIC_STEPS = [
@@ -323,12 +360,9 @@ document.addEventListener("DOMContentLoaded", () => {
   renderSources();
   renderArticlesTable("all");
   renderPersonas();
-  renderChat();
-  renderOutputPreview();
   renderContentOutput();
   renderCalendar();
   renderNewsletter();
-  renderAgenticPanel();
   initModal();
   initTimeSlider();
   setActiveView("analytics");
@@ -355,10 +389,7 @@ function setActiveView(viewId) {
   updateSidebar(viewId);
   updateStatusBar(viewId);
 
-  // Draw charts when analytics tab is shown
-  if (viewId === "analytics") {
-    setTimeout(() => drawEngagementChart(), 50);
-  }
+
 }
 
 
@@ -417,11 +448,11 @@ function updateSidebar(viewId) {
       </button>
       <button class="sidebar__item" data-action="active-sources">
         <span class="sidebar__item-icon">✅</span> Aktive
-        <span class="sidebar__item-badge">${SOURCES.filter(s=>s.status==='aktiv').length}</span>
+        <span class="sidebar__item-badge">${SOURCES.filter(s => s.status === 'aktiv').length}</span>
       </button>
       <button class="sidebar__item" data-action="paused-sources">
         <span class="sidebar__item-icon">⏸️</span> Pausiert
-        <span class="sidebar__item-badge">${SOURCES.filter(s=>s.status==='pausiert').length}</span>
+        <span class="sidebar__item-badge">${SOURCES.filter(s => s.status === 'pausiert').length}</span>
       </button>
       <div class="sidebar__section-title">Kategorien</div>
       <button class="sidebar__item" data-action="filter-all"><span class="sidebar__item-icon">📄</span> Alle Artikel</button>
@@ -437,16 +468,6 @@ function updateSidebar(viewId) {
       ${PERSONAS.map(p => `<button class="sidebar__item" data-action="select-persona-${p.id}"><span class="sidebar__item-icon">${p.emoji}</span> ${p.name}</button>`).join("")}
       <div class="sidebar__section-title">Filter</div>
       <button class="sidebar__item" data-action="high-relevance"><span class="sidebar__item-icon">📈</span> Hohe Relevanz</button>
-    `,
-    copywriter: `
-      <div class="sidebar__section-title">KI-Assistent</div>
-      <button class="sidebar__item sidebar__item--active" data-action="chat"><span class="sidebar__item-icon">💬</span> Chat</button>
-      <button class="sidebar__item" data-action="templates"><span class="sidebar__item-icon">📝</span> Vorlagen</button>
-      <button class="sidebar__item" data-action="toggle-agentic"><span class="sidebar__item-icon">🔍</span> Agentic Workflow</button>
-      <div class="sidebar__section-title">Quellartikel</div>
-      ${ARTICLES.slice(0, 4).map(a => `<button class="sidebar__item" data-action="use-article-${a.id}"><span class="sidebar__item-icon">📄</span> ${a.title.substring(0, 25)}…</button>`).join("")}
-      <div class="sidebar__section-title">Quellreferenzen</div>
-      ${SOURCES.slice(0, 5).map(s => `<button class="sidebar__item" data-action="ref-source"><span class="sidebar__item-icon">🌐</span> ${s.url.split('/')[0]}</button>`).join("")}
     `,
     newsletter: `
       <div class="sidebar__section-title">Newsletter</div>
@@ -518,19 +539,19 @@ function renderAnalytics() {
     </div>
     <div class="card card--error">
       <div class="card__label">Gescrapte Artikel</div>
-      <div class="card__value">${SOURCES.reduce((s,x)=>s+x.articles,0)}</div>
+      <div class="card__value">${SOURCES.reduce((s, x) => s + x.articles, 0)}</div>
       <div class="card__sub">${SOURCES.length} Quellen aktiv</div>
     </div>
   `;
 
-  // Posts per platform bar chart
-  renderBarChart();
-
   // Category donut
   renderDonutChart();
 
-  // Top content table
-  renderTopContent();
+  // Trend Scraping (New)
+  renderTrendScraping();
+
+  // Persona Interests (New)
+  renderPersonaInterestsAnalytics();
 
   // Activity feed
   document.getElementById("analytics-feed").innerHTML = ACTIVITY_LOG.map(item => `
@@ -541,23 +562,65 @@ function renderAnalytics() {
   `).join("");
 }
 
-function renderBarChart() {
-  const d = ANALYTICS_DATA;
-  const bars = [
-    { label: "TikTok", value: d.reach.tiktok, color: "" },
-    { label: "Instagram", value: d.reach.instagram, color: "--green" },
-    { label: "Facebook", value: d.reach.facebook, color: "--orange" }
-  ];
-  const maxVal = Math.max(...bars.map(b => b.value));
+function renderTrendScraping() {
+  const el = document.getElementById("trend-scraped-topics");
+  if (!el) return;
 
-  document.getElementById("bar-chart-reach").innerHTML = bars.map(b => `
-    <div class="bar-chart__col">
-      <div class="bar-chart__bar bar-chart__bar${b.color}" style="height:${(b.value / maxVal) * 140}px">
-        <span class="bar-chart__bar-val">${(b.value/1000).toFixed(1)}K</span>
-      </div>
-      <span class="bar-chart__label">${b.label}</span>
+  const keywordsHTML = `
+    <div style="font-size:11px;font-weight:600;color:var(--text-secondary);margin-bottom:6px">TRENDING KEYWORDS (HEILBRONN)</div>
+    <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px">
+      ${TRENDS_DATA.keywords.map(k => {
+    const trendIcon = k.trend === "up" ? "📈" : k.trend === "down" ? "📉" : "➡️";
+    const badgeColor = k.trend === "up" ? "badge--green" : k.trend === "down" ? "badge--red" : "badge--gray";
+    return `<span class="badge ${badgeColor}" title="Volume: ${k.volume}" style="padding:4px 8px;cursor:help;font-size:10px">${k.word} ${trendIcon} ${k.change}</span>`;
+  }).join("")}
     </div>
-  `).join("");
+  `;
+
+  const topicsHTML = `
+    <div style="font-size:11px;font-weight:600;color:var(--text-secondary);margin-bottom:6px">TRENDING SOCIAL MEDIA TOPICS</div>
+    <div style="display:flex;flex-direction:column;gap:6px">
+      ${TRENDS_DATA.topics.map(t => `
+        <div class="stat-row" style="padding:4px 0">
+          <span style="font-weight:600;font-size:12px">${t.title}</span>
+          <span style="font-size:11px;color:var(--text-secondary)">${t.platform} · Reach: ${t.reach} · ${t.engagement} ER</span>
+        </div>
+      `).join("")}
+    </div>
+  `;
+
+  el.innerHTML = keywordsHTML + topicsHTML;
+}
+
+function renderPersonaInterestsAnalytics() {
+  const el = document.getElementById("persona-interests-analytics");
+  if (!el) return;
+
+  el.innerHTML = `
+    <div style="font-size:11px;font-weight:600;color:var(--text-secondary);margin-bottom:6px">MARKTANTEILE & INTERESSEN-MATCHING</div>
+    <div class="table-container" style="margin-bottom:0;border:none">
+      <table style="font-size:11px">
+        <thead>
+          <tr style="background:none">
+            <th style="padding:4px 8px">Persona</th>
+            <th style="padding:4px 8px">Reichweite-Anteil</th>
+            <th style="padding:4px 8px">Hauptinteresse</th>
+            <th style="padding:4px 8px">Engagement-Rate</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${PERSONA_ANALYTICS_DATA.map(p => `
+            <tr style="cursor:default">
+              <td style="padding:6px 8px"><strong>${p.emoji} ${p.name}</strong></td>
+              <td style="padding:6px 8px">${p.reachShare}</td>
+              <td style="padding:6px 8px"><span class="badge badge--gray" style="font-size:10px">${p.topInterest}</span></td>
+              <td style="padding:6px 8px;font-weight:600;color:var(--success)">${p.engagement}</td>
+            </tr>
+          `).join("")}
+        </tbody>
+      </table>
+    </div>
+  `;
 }
 
 function renderDonutChart() {
@@ -605,103 +668,6 @@ function renderDonutChart() {
   `;
 }
 
-function drawEngagementChart() {
-  const canvas = document.getElementById("engagement-canvas");
-  if (!canvas) return;
-  const ctx = canvas.getContext("2d");
-  const dpr = window.devicePixelRatio || 1;
-  const rect = canvas.parentElement.getBoundingClientRect();
-  canvas.width = rect.width * dpr;
-  canvas.height = 180 * dpr;
-  canvas.style.width = rect.width + "px";
-  canvas.style.height = "180px";
-  ctx.scale(dpr, dpr);
-
-  const w = rect.width;
-  const h = 180;
-  const pad = { top: 20, right: 20, bottom: 30, left: 40 };
-  const data = ANALYTICS_DATA.weeklyEngagement;
-  const allVals = data.flatMap(d => [d.ig, d.fb, d.tt]);
-  const maxVal = Math.max(...allVals) * 1.1;
-  const chartW = w - pad.left - pad.right;
-  const chartH = h - pad.top - pad.bottom;
-
-  ctx.clearRect(0, 0, w, h);
-
-  // Grid
-  ctx.strokeStyle = "#E1E1E1";
-  ctx.lineWidth = 1;
-  for (let i = 0; i <= 4; i++) {
-    const y = pad.top + (chartH / 4) * i;
-    ctx.beginPath();
-    ctx.moveTo(pad.left, y);
-    ctx.lineTo(w - pad.right, y);
-    ctx.stroke();
-  }
-
-  // X labels
-  ctx.fillStyle = "#616161";
-  ctx.font = "11px Segoe UI";
-  ctx.textAlign = "center";
-  data.forEach((d, i) => {
-    const x = pad.left + (chartW / (data.length - 1)) * i;
-    ctx.fillText(d.label, x, h - 8);
-  });
-
-  // Y labels
-  ctx.textAlign = "right";
-  for (let i = 0; i <= 4; i++) {
-    const y = pad.top + (chartH / 4) * i;
-    const val = Math.round(maxVal - (maxVal / 4) * i);
-    ctx.fillText(val, pad.left - 6, y + 4);
-  }
-
-  // Lines
-  const drawLine = (key, color) => {
-    ctx.strokeStyle = color;
-    ctx.lineWidth = 2;
-    ctx.beginPath();
-    data.forEach((d, i) => {
-      const x = pad.left + (chartW / (data.length - 1)) * i;
-      const y = pad.top + chartH - (d[key] / maxVal) * chartH;
-      if (i === 0) ctx.moveTo(x, y);
-      else ctx.lineTo(x, y);
-    });
-    ctx.stroke();
-
-    // Points
-    data.forEach((d, i) => {
-      const x = pad.left + (chartW / (data.length - 1)) * i;
-      const y = pad.top + chartH - (d[key] / maxVal) * chartH;
-      ctx.beginPath();
-      ctx.arc(x, y, 3, 0, Math.PI * 2);
-      ctx.fillStyle = color;
-      ctx.fill();
-    });
-  };
-
-  drawLine("tt", "#1B1B1B");
-  drawLine("ig", "#0078D4");
-  drawLine("fb", "#107C10");
-
-  // Legend
-  const legends = [
-    { label: "TikTok", color: "#1B1B1B" },
-    { label: "Instagram", color: "#0078D4" },
-    { label: "Facebook", color: "#107C10" }
-  ];
-  let lx = pad.left;
-  ctx.textAlign = "left";
-  legends.forEach(l => {
-    ctx.fillStyle = l.color;
-    ctx.fillRect(lx, 4, 12, 3);
-    ctx.fillStyle = "#616161";
-    ctx.font = "10px Segoe UI";
-    ctx.fillText(l.label, lx + 16, 9);
-    lx += 75;
-  });
-}
-
 function renderTopContent() {
   const tbody = document.getElementById("top-content-tbody");
   tbody.innerHTML = ANALYTICS_DATA.topContent.map((c, i) => `
@@ -709,7 +675,7 @@ function renderTopContent() {
       <td style="font-weight:600">${i + 1}</td>
       <td><strong>${c.title}</strong></td>
       <td><span class="badge badge--gray">${c.platform}</span></td>
-      <td>${(c.reach/1000).toFixed(1)}K</td>
+      <td>${(c.reach / 1000).toFixed(1)}K</td>
       <td style="font-weight:600;color:var(--success)">${c.engagement}</td>
     </tr>
   `).join("");
@@ -732,6 +698,44 @@ function renderSources() {
       </td>
     </tr>
   `).join("");
+}
+
+function openSourcesModal() {
+  document.getElementById("sources-list-overlay").style.display = "flex";
+  renderSources();
+}
+
+function closeSourcesModal() {
+  document.getElementById("sources-list-overlay").style.display = "none";
+}
+
+function handleAddSource() {
+  const name = document.getElementById("new-source-name").value.trim();
+  const url = document.getElementById("new-source-url").value.trim();
+
+  if (!name || !url) {
+    showToast("Bitte Name und URL der Quelle eingeben!", "warning");
+    return;
+  }
+
+  const today = new Date();
+  const formattedDate = today.toLocaleDateString("de-DE") + ", " + today.toLocaleTimeString("de-DE", { hour: "2-digit", minute: "2-digit" });
+
+  SOURCES.push({
+    name: name,
+    url: url,
+    lastScraped: formattedDate,
+    articles: 0,
+    status: "aktiv"
+  });
+
+  document.getElementById("new-source-name").value = "";
+  document.getElementById("new-source-url").value = "";
+
+  renderSources();
+  renderAnalytics();
+
+  showToast(`Quelle "${name}" wurde hinzugefügt!`, "success");
 }
 
 function renderArticlesTable(category) {
@@ -780,13 +784,22 @@ function renderPersonas() {
           <div class="persona-card__demo">${p.ageRange} Jahre · ${p.followers} Follower</div>
         </div>
       </div>
-      <div class="img-placeholder img-placeholder--sm" style="margin-bottom:8px">
-        <span class="img-placeholder__icon">👤</span>
-        <span class="img-placeholder__label">Persona-Bild</span>
+      <div style="font-size:12px;color:var(--text-secondary);margin-bottom:10px">${p.description}</div>
+      
+      <div class="persona-details" style="font-size:11px;display:flex;flex-direction:column;gap:6px;border-top:1px solid var(--border-light);padding-top:8px">
+        <div>
+          <strong>🔥 Hauptinteressen:</strong> 
+          <span style="color:var(--text-secondary)">${p.massiveInterests.join(" · ")}</span>
+        </div>
+        <div>
+          <strong>📸 Instagram Accounts:</strong> 
+          <span style="color:var(--primary)">${p.instagramAccounts.join(" · ")}</span>
+        </div>
       </div>
-      <div style="font-size:12px;color:var(--text-secondary);margin-bottom:8px">${p.description}</div>
-      <div class="persona-card__interests">${p.interests.map(i => `<span class="badge badge--blue">${i}</span>`).join(" ")}</div>
-      <div class="persona-card__platforms">Plattformen: ${p.platforms.join(", ")}</div>
+      
+      <div style="display:flex;justify-content:space-between;margin-top:10px;font-size:11px;border-top:1px solid var(--border-light);padding-top:8px">
+        <span><strong>Plattformen:</strong> ${p.platforms.join(", ")}</span>
+      </div>
     </div>
   `).join("");
   renderPersonaArticles();
@@ -798,8 +811,18 @@ function selectPersona(pid) {
 }
 
 function renderPersonaArticles() {
+  const thead = document.getElementById("persona-articles-thead");
   const tbody = document.getElementById("persona-articles-tbody");
-  if (!tbody) return;
+  if (!tbody || !thead) return;
+
+  thead.innerHTML = `
+    <tr>
+      <th style="min-width:250px">Artikel</th>
+      <th>Kategorie</th>
+      ${PERSONAS.map(p => `<th>${p.emoji} ${p.name.split(" ")[0]}</th>`).join("")}
+    </tr>
+  `;
+
   const articles = selectedPersonaId ? ARTICLES.filter(a => a.personas.includes(selectedPersonaId)) : ARTICLES;
 
   tbody.innerHTML = articles.map(a => {
@@ -813,122 +836,7 @@ function renderPersonaArticles() {
 }
 
 
-// ── Copywriter View ────────────────────────────────────────
 
-function renderChat() {
-  const messages = document.getElementById("chat-messages");
-  messages.innerHTML = CHAT_MESSAGES.map(m => `
-    <div class="chat-msg chat-msg--${m.sender === 'user' ? 'user' : 'bot'}">
-      <div class="chat-msg__label">${m.sender === 'user' ? 'Du' : 'KI-Assistent'}</div>
-      ${m.text}
-    </div>
-  `).join("");
-  messages.scrollTop = messages.scrollHeight;
-}
-
-function renderOutputPreview() {
-  const container = document.getElementById("output-preview-content");
-  const platforms = ["tiktok", "instagram", "facebook"];
-
-  container.innerHTML = platforms.map(plat => {
-    const post = GENERATED_POSTS[plat];
-    return `
-      <div class="output-post ${plat === 'tiktok' ? 'output-post--active' : ''}" id="output-post-${plat}">
-        <div class="output-post__platform-label">${post.platform}</div>
-        <div class="img-placeholder img-placeholder--sm" style="margin-bottom:12px">
-          <span class="img-placeholder__icon">📷</span>
-          <span class="img-placeholder__label">Post-Bild / Thumbnail</span>
-        </div>
-        <div class="output-post__text" id="output-text-${plat}">${post.text}</div>
-        ${post.hashtags ? `<div class="output-post__hashtags" id="output-hashtags-${plat}">${post.hashtags}</div>` : ""}
-        <div class="output-post__meta">Zeichen: ${post.charCount} · Persona: ${post.persona}</div>
-        <div class="translate-bar">
-          <span class="translate-bar__label">🌐 Automatische Übersetzung</span>
-          <button class="btn btn--sm btn--translate" id="translate-btn-${plat}" onclick="toggleTranslation('${plat}')">EN — English</button>
-        </div>
-      </div>
-    `;
-  }).join("");
-
-  document.querySelectorAll(".output-tab").forEach(tab => {
-    tab.addEventListener("click", () => {
-      const plat = tab.dataset.platform;
-      document.querySelectorAll(".output-tab").forEach(t => t.classList.remove("output-tab--active"));
-      tab.classList.add("output-tab--active");
-      document.querySelectorAll(".output-post").forEach(p => p.classList.remove("output-post--active"));
-      const target = document.getElementById(`output-post-${plat}`);
-      if (target) target.classList.add("output-post--active");
-    });
-  });
-}
-
-
-// ── Agentic Workflow Panel ─────────────────────────────────
-
-function renderAgenticPanel() {
-  const body = document.getElementById("agentic-steps");
-  if (!body) return;
-
-  body.innerHTML = AGENTIC_STEPS.map(step => `
-    <div class="agentic-step">
-      <div class="agentic-step__indicator agentic-step__indicator--${step.status}">
-        ${step.status === 'done' ? '✓' : step.status === 'active' ? '▶' : '○'}
-      </div>
-      <div class="agentic-step__content">
-        <div class="agentic-step__title">${step.title}</div>
-        <div class="agentic-step__detail">${step.detail}</div>
-        ${step.refs.length > 0 ? `
-          <div class="agentic-step__refs">
-            ${step.refs.map(r => `
-              <div style="margin-bottom:2px">${r.url ? `<span class="agentic-step__ref-link" onclick="showToast('Quelle: ${r.url}', 'info')">${r.label}</span>` : r.label}</div>
-            `).join("")}
-          </div>
-        ` : ''}
-      </div>
-    </div>
-  `).join("");
-
-  // Render revision footer
-  const footer = document.getElementById("agentic-footer");
-  if (footer) {
-    footer.innerHTML = `
-      <div class="agentic-footer__info">
-        Workflow abgeschlossen — bereit zur Revision durch Redaktionsleitung
-      </div>
-      <button class="btn btn--sm" onclick="handleSendRevision('email')">
-        📧 E-Mail senden
-      </button>
-      <button class="btn btn--sm" onclick="handleSendRevision('slack')">
-        💬 Slack senden
-      </button>
-    `;
-  }
-}
-
-function toggleAgenticPanel() {
-  const panel = document.getElementById("agentic-panel");
-  if (panel) panel.classList.toggle("agentic-panel--open");
-}
-
-
-// ── Generate Action ────────────────────────────────────────
-
-let generateClickCount = 0;
-
-function handleGenerate() {
-  generateClickCount++;
-  const platforms = ["tiktok", "instagram", "facebook"];
-  const nextPlatform = platforms[generateClickCount % 3];
-
-  document.querySelectorAll(".output-tab").forEach(t => t.classList.remove("output-tab--active"));
-  const targetTab = document.querySelector(`.output-tab[data-platform="${nextPlatform}"]`);
-  if (targetTab) targetTab.classList.add("output-tab--active");
-  document.querySelectorAll(".output-post").forEach(p => p.classList.remove("output-post--active"));
-  const targetPost = document.getElementById(`output-post-${nextPlatform}`);
-  if (targetPost) targetPost.classList.add("output-post--active");
-
-  showToast(`${GENERATED_POSTS[nextPlatform].platform}-Post generiert!`, "success");
-}
 
 
 // ── Newsletter View ────────────────────────────────────────
@@ -975,17 +883,19 @@ function renderContentOutput() {
           <span class="badge badge--blue">Entwurf</span>
         </div>
         <div class="post-preview__body">
-          <div class="img-placeholder img-placeholder--md">
-            <span class="img-placeholder__icon">📷</span>
-            <span class="img-placeholder__label">${post.platform}-Bild / Video</span>
+          <div class="img-placeholder img-placeholder--md img-preview-container ${post.customImageSrc ? 'has-image' : ''}" onclick="triggerImagePicker(this)">
+            ${post.customImageSrc
+        ? `<img src="${post.customImageSrc}" alt="${post.platform}" style="width:100%;height:100%;object-fit:cover;display:block;position:absolute;inset:0"><div class="img-upload-overlay" style="background:rgba(0,0,0,0.5);color:#fff">➕ Bild ändern</div>`
+        : `<span class="img-placeholder__icon">📷</span><span class="img-placeholder__label">${post.platform}-Bild / Video (Klicken für Upload)</span><div class="img-upload-overlay">➕ Bild hinzufügen</div>`
+      }
           </div>
-          <div class="post-preview__text" style="margin-top:12px">${post.text}</div>
-          ${post.hashtags ? `<div class="post-preview__hashtags">${post.hashtags}</div>` : ""}
+          <div class="post-preview__text" id="output-text-${plat}" style="margin-top:12px">${post.text}</div>
+          ${post.hashtags ? `<div class="post-preview__hashtags" id="output-hashtags-${plat}">${post.hashtags}</div>` : ""}
         </div>
         <div class="post-preview__footer">
-          <button class="btn btn--sm" onclick="toggleTranslation('${plat}')">🌐 EN</button>
+          <button class="btn btn--sm" id="translate-btn-${plat}" onclick="toggleTranslation('${plat}')">🌐 EN</button>
           <button class="btn btn--sm" onclick="showToast('Entwurf gespeichert', 'success')">💾 Speichern</button>
-          <button class="btn btn--sm btn--primary" onclick="showToast('Veröffentlichung simuliert — ${post.platform}', 'success')">Veröffentlichen</button>
+          <button class="btn btn--sm btn--primary" onclick="openPublishModal('${plat}')">Veröffentlichen</button>
         </div>
       </div>
     `;
@@ -1039,15 +949,15 @@ function openArticleModal(articleId) {
     <div style="margin-top:16px;padding-top:12px;border-top:1px solid var(--border-light)">
       <div style="font-size:12px;font-weight:600;color:var(--text-secondary);margin-bottom:4px">PERSONA-RELEVANZ</div>
       ${PERSONAS.map(p => {
-        const score = article.relevance[p.id] || 0;
-        return `<div style="display:flex;align-items:center;gap:8px;margin-bottom:4px">
+    const score = article.relevance[p.id] || 0;
+    return `<div style="display:flex;align-items:center;gap:8px;margin-bottom:4px">
           <span style="min-width:120px;font-size:12px">${p.emoji} ${p.name}</span>
           <div style="flex:1;height:12px;background:var(--surface);border:1px solid var(--border-light)">
             <div style="width:${score}%;height:100%;background:${score >= 80 ? 'var(--success)' : score >= 50 ? 'var(--warning)' : 'var(--border)'}"></div>
           </div>
           <span style="font-size:12px;font-weight:600;min-width:32px">${score}%</span>
         </div>`;
-      }).join("")}
+  }).join("")}
     </div>
     <div style="margin-top:12px;padding-top:12px;border-top:1px solid var(--border-light)">
       <div style="font-size:12px;font-weight:600;color:var(--text-secondary);margin-bottom:4px">QUELLE</div>
@@ -1060,6 +970,262 @@ function openArticleModal(articleId) {
 
 function closeModal() {
   document.getElementById("modal-overlay").classList.remove("modal-overlay--visible");
+}
+
+let activeImageTarget = null;
+
+function triggerImagePicker(element) {
+  activeImageTarget = element;
+  document.getElementById("image-picker-overlay").style.display = "flex";
+}
+
+function closeImagePicker() {
+  document.getElementById("image-picker-overlay").style.display = "none";
+  activeImageTarget = null;
+}
+
+function selectPickerImage(src, altText) {
+  if (activeImageTarget) {
+    activeImageTarget.innerHTML = `
+      <img src="${src}" alt="${altText}" style="width:100%;height:100%;object-fit:cover;display:block;position:absolute;inset:0">
+      <div class="img-upload-overlay" style="background:rgba(0,0,0,0.5);color:#fff">➕ Bild ändern</div>
+    `;
+    activeImageTarget.classList.add("has-image");
+  }
+  closeImagePicker();
+  showToast("Bild erfolgreich ausgewählt!", "success");
+}
+
+function openAddIdeaModal() {
+  document.getElementById("add-idea-overlay").style.display = "flex";
+}
+
+function closeAddIdeaModal() {
+  document.getElementById("add-idea-overlay").style.display = "none";
+  document.getElementById("idea-title").value = "";
+  document.getElementById("idea-type").value = "preliminary";
+  document.getElementById("idea-desc").value = "";
+  const imgContainer = document.getElementById("idea-img-container");
+  imgContainer.innerHTML = `
+    <span class="img-placeholder__icon">📷</span>
+    <span class="img-placeholder__label">Klicken, um Bild auszuwählen</span>
+    <div class="img-upload-overlay">➕ Bild hinzufügen</div>
+  `;
+  imgContainer.classList.remove("has-image");
+}
+
+function handleAddIdea() {
+  const title = document.getElementById("idea-title").value.trim();
+  const type = document.getElementById("idea-type").value;
+  const desc = document.getElementById("idea-desc").value.trim();
+  const imgContainer = document.getElementById("idea-img-container");
+
+  if (!title) {
+    showToast("Bitte gib einen Titel ein!", "warning");
+    return;
+  }
+
+  showToast("KI extrahiert Eventdaten & bewertet Relevanz...", "info");
+
+  setTimeout(() => {
+    let imageSrc = null;
+    const imgEl = imgContainer.querySelector("img");
+    if (imgEl) {
+      imageSrc = imgEl.getAttribute("src");
+    }
+
+    const isEvent = type === "preliminary";
+    const newId = ARTICLES.length + 1;
+    const today = new Date();
+    const formattedDate = today.toLocaleDateString("de-DE", { day: "2-digit", month: "2-digit", year: "numeric" });
+
+    const newArticle = {
+      id: newId,
+      title: title,
+      source: isEvent ? "Vorläufige Info / Idee" : "Heilbronner Stimme (manuell)",
+      sourceIdx: 0,
+      category: isEvent ? "Events" : "Wirtschaft",
+      date: formattedDate,
+      status: "neu",
+      snippet: desc.substring(0, 100) + (desc.length > 100 ? "..." : ""),
+      body: desc || "Keine weiteren Details erfasst.",
+      personas: isEvent ? [1, 3, 4] : [1, 2],
+      relevance: {
+        1: isEvent ? 88 : 80,
+        2: isEvent ? 65 : 85,
+        3: isEvent ? 90 : 50,
+        4: isEvent ? 75 : 40
+      },
+      image: imageSrc ? "uploaded" : null,
+      customImageSrc: imageSrc
+    };
+
+    ARTICLES.unshift(newArticle);
+
+    renderArticlesTable("all");
+    renderPersonaArticles();
+
+    const nowTime = today.toLocaleTimeString("de-DE", { hour: "2-digit", minute: "2-digit" });
+    ACTIVITY_LOG.unshift({ time: nowTime, text: `Event extrahiert: "${title}"`, type: "success" });
+    renderAnalytics();
+
+    closeAddIdeaModal();
+    showToast("Extraktion abgeschlossen! Event erfasst.", "success");
+  }, 1000);
+}
+
+let tempDrafts = {};
+
+function openAiGenerationModal() {
+  const personaSelect = document.getElementById("ai-persona-select");
+  personaSelect.innerHTML = PERSONAS.map(p => `<option value="${p.id}">${p.emoji} ${p.name}</option>`).join("");
+
+  const articleSelect = document.getElementById("ai-article-select");
+  articleSelect.innerHTML = `<option value="">-- Freie Texteingabe ohne Artikel --</option>` +
+    ARTICLES.map(a => `<option value="${a.id}">${a.title.substring(0, 50)}...</option>`).join("");
+
+  document.getElementById("ai-topic-desc").value = "";
+  const imgContainer = document.getElementById("ai-img-container");
+  imgContainer.innerHTML = `
+    <span class="img-placeholder__icon">📷</span>
+    <span class="img-placeholder__label">Klicken, um Bild auszuwählen</span>
+    <div class="img-upload-overlay">➕ Bild hinzufügen</div>
+  `;
+  imgContainer.classList.remove("has-image");
+
+  document.querySelectorAll(".platform-toggle").forEach(btn => {
+    btn.classList.add("btn--active", "btn--primary");
+  });
+
+  document.getElementById("ai-results-container").style.display = "none";
+  document.getElementById("ai-gen-btn").style.display = "inline-flex";
+  document.getElementById("ai-save-btn").style.display = "none";
+
+  document.getElementById("ai-generation-overlay").style.display = "flex";
+}
+
+function closeAiGenerationModal() {
+  document.getElementById("ai-generation-overlay").style.display = "none";
+  tempDrafts = {};
+}
+
+function togglePlatformButton(btn) {
+  btn.classList.toggle("btn--active");
+  btn.classList.toggle("btn--primary");
+}
+
+function fillTopicFromArticle(select) {
+  const articleId = parseInt(select.value);
+  if (articleId) {
+    const art = ARTICLES.find(a => a.id === articleId);
+    if (art) {
+      document.getElementById("ai-topic-desc").value = art.title + ": " + art.snippet;
+    }
+  } else {
+    document.getElementById("ai-topic-desc").value = "";
+  }
+}
+
+function handleAiGeneration() {
+  const topic = document.getElementById("ai-topic-desc").value.trim();
+  const personaId = parseInt(document.getElementById("ai-persona-select").value);
+  const persona = PERSONAS.find(p => p.id === personaId);
+  const imgContainer = document.getElementById("ai-img-container");
+
+  // Find toggled platforms
+  const platforms = [];
+  document.querySelectorAll(".platform-toggle.btn--active").forEach(btn => {
+    platforms.push(btn.dataset.platform);
+  });
+
+  if (!topic) {
+    showToast("Bitte gib ein Thema oder eine Leitidee ein!", "warning");
+    return;
+  }
+
+  if (platforms.length === 0) {
+    showToast("Bitte wähle mindestens eine Plattform aus!", "warning");
+    return;
+  }
+
+  showToast("KI entwirft Social Media Beiträge...", "info");
+
+  document.getElementById("ai-gen-btn").innerHTML = "⌛ Generiere...";
+  document.getElementById("ai-gen-btn").disabled = true;
+
+  setTimeout(() => {
+    let imageSrc = null;
+    const imgEl = imgContainer.querySelector("img");
+    if (imgEl) {
+      imageSrc = imgEl.getAttribute("src");
+    }
+
+    tempDrafts = {};
+    let resultsHTML = "";
+
+    platforms.forEach(plat => {
+      const text = generatePlatformText(plat, topic, persona);
+      const hashtags = plat === "facebook" ? "" : plat === "tiktok" ? "#Heilbronn #Trends #Genz #Trending" : "#Heilbronn #Community #Life";
+      tempDrafts[plat] = { text, hashtags, imageSrc };
+
+      const platformLabels = { tiktok: "🎵 TikTok", instagram: "📸 Instagram", facebook: "📘 Facebook" };
+      resultsHTML += `
+        <div style="background:var(--surface);border:1px solid var(--border-light);padding:8px;border-radius:var(--radius)">
+          <div style="font-weight:600;font-size:11px;color:var(--text-secondary);text-transform:uppercase;margin-bottom:4px">${platformLabels[plat]}</div>
+          <textarea rows="3" style="width:100%;padding:4px;font-size:12px;font-family:var(--font);border:1px solid var(--border);border-radius:var(--radius);resize:vertical;outline:none" oninput="tempDrafts['${plat}'].text = this.value">${text}</textarea>
+          ${hashtags ? `<input type="text" value="${hashtags}" style="width:100%;margin-top:4px;padding:4px;font-size:11px;color:var(--primary);border:1px solid var(--border);border-radius:var(--radius);outline:none" oninput="tempDrafts['${plat}'].hashtags = this.value">` : ""}
+        </div>
+      `;
+    });
+
+    document.getElementById("ai-results-list").innerHTML = resultsHTML;
+    document.getElementById("ai-results-container").style.display = "block";
+
+    document.getElementById("ai-gen-btn").innerHTML = "⚡ KI-Beiträge entwerfen";
+    document.getElementById("ai-gen-btn").disabled = false;
+    document.getElementById("ai-gen-btn").style.display = "none";
+    document.getElementById("ai-save-btn").style.display = "inline-flex";
+
+    showToast("Entwürfe erfolgreich generiert!", "success");
+  }, 1200);
+}
+
+function generatePlatformText(platform, topicText, persona) {
+  const cleanTopic = topicText.replace(/[:]/g, " — ");
+  if (platform === "tiktok") {
+    return `POV: Du wohnst in Heilbronn und erfährst das: ${cleanTopic}! 🍷✨\n\nPasst perfekt für unsere Community! Was meint ihr dazu? 👇`;
+  } else if (platform === "instagram") {
+    return `📸 Heilbronn Trends: ${cleanTopic}.\n\nPerfekt für unsere Zielgruppe ${persona.name}. Wie gefällt euch dieses Thema?\n\n📍 Heilbronn\n#Heilbronn #StimmeNews #SocialMedia #Trend`;
+  } else {
+    return `📘 Liebe Heilbronnerinnen und Heilbronner,\n\nwir möchten Sie über folgendes informieren: ${cleanTopic}.\n\nDieser Beitrag richtet sich besonders an die Community der ${persona.name}.\n\nWas ist Ihre Meinung zu diesem Thema? Schreiben Sie es uns gerne in den Kommentaren! 💬`;
+  }
+}
+
+function saveAiDrafts() {
+  const personaId = parseInt(document.getElementById("ai-persona-select").value);
+  const persona = PERSONAS.find(p => p.id === personaId);
+
+  for (const plat in tempDrafts) {
+    if (GENERATED_POSTS[plat]) {
+      GENERATED_POSTS[plat].text = tempDrafts[plat].text;
+      GENERATED_POSTS[plat].hashtags = tempDrafts[plat].hashtags;
+      GENERATED_POSTS[plat].charCount = tempDrafts[plat].text.length;
+      GENERATED_POSTS[plat].persona = persona.name;
+
+      const imgContainer = document.getElementById("ai-img-container");
+      const imgEl = imgContainer.querySelector("img");
+      if (imgEl) {
+        GENERATED_POSTS[plat].customImageSrc = imgEl.getAttribute("src");
+      } else {
+        GENERATED_POSTS[plat].customImageSrc = null;
+      }
+    }
+  }
+
+  renderContentOutput();
+  setActiveView("output");
+  closeAiGenerationModal();
+  showToast("Entwürfe in Content-Ausgabe übernommen!", "success");
 }
 
 
@@ -1086,7 +1252,6 @@ function updateStatusBar(viewId) {
     analytics: "Analytics & Übersicht",
     sources: "Quellen & Scraping",
     personas: "Personas & Filter",
-    copywriter: "KI-Textgenerator",
     newsletter: "Newsletter",
     output: "Content-Ausgabe"
   };
@@ -1101,14 +1266,7 @@ document.addEventListener("keydown", (e) => {
   if (e.key === "Escape") closeModal();
 });
 
-// ── Window resize for chart ────────────────────────────────
 
-window.addEventListener("resize", () => {
-  const activeView = document.querySelector(".view--active");
-  if (activeView && activeView.id === "view-analytics") {
-    drawEngagementChart();
-  }
-});
 
 
 // ── Calendar ───────────────────────────────────────────────
@@ -1172,4 +1330,89 @@ function handleSendRevision(channel) {
   } else if (channel === 'slack') {
     showToast('💬 Slack-Nachricht an #redaktion gesendet — "3 neue Posts zur Revision bereit"', 'success');
   }
+}
+
+
+// ── Publish Account Selector Modal ─────────────────────────
+
+let currentPublishPlatform = "";
+
+function openPublishModal(platform) {
+  currentPublishPlatform = platform;
+  const platformDisplay = document.getElementById("publish-platform-display");
+  const accountSelect = document.getElementById("publish-account-select");
+
+  if (!platformDisplay || !accountSelect) return;
+
+  const platformNames = {
+    tiktok: "TikTok",
+    instagram: "Instagram",
+    facebook: "Facebook"
+  };
+
+  platformDisplay.value = platformNames[platform.toLowerCase()] || platform;
+
+  let options = [];
+  if (platform.toLowerCase() === "tiktok") {
+    options = [
+      { value: "@stimme.next", label: "🎵 @stimme.next (Gen-Z Kanal)" },
+      { value: "@echo24.de", label: "🎵 @echo24.de (Regionales TikTok)" }
+    ];
+  } else if (platform.toLowerCase() === "instagram") {
+    options = [
+      { value: "@stimme.news", label: "📸 @stimme.news (Hauptkanal)" },
+      { value: "@stimme.next", label: "📸 @stimme.next (Junge Zielgruppe)" },
+      { value: "@stimme.business", label: "📸 @stimme.business (Wirtschaft)" },
+      { value: "@stimme.regio", label: "📸 @stimme.regio (Regional)" },
+      { value: "@stimme.familie", label: "📸 @stimme.familie (Familien)" },
+      { value: "@stimme.kultur", label: "📸 @stimme.kultur (Kultur & Freizeit)" },
+      { value: "@echo24_next", label: "📸 @echo24_next" },
+      { value: "@echo24_heilbronn", label: "📸 @echo24_heilbronn" }
+    ];
+  } else if (platform.toLowerCase() === "facebook") {
+    options = [
+      { value: "Heilbronner Stimme Page", label: "📘 Heilbronner Stimme (Hauptseite)" },
+      { value: "echo24.de Page", label: "📘 echo24.de (Boulevard & HN)" },
+      { value: "Stimme Regio Page", label: "📘 Stimme Regio (Landkreis)" },
+      { value: "Stimme Familie Page", label: "📘 Stimme Familie (Eltern & Kinder)" }
+    ];
+  }
+
+  accountSelect.innerHTML = options.map(opt => `<option value="${opt.value}">${opt.label}</option>`).join("");
+  document.getElementById("publish-account-overlay").style.display = "flex";
+}
+
+function closePublishModal() {
+  document.getElementById("publish-account-overlay").style.display = "none";
+}
+
+function handleConfirmPublish() {
+  const accountSelect = document.getElementById("publish-account-select");
+  const scheduleSelect = document.getElementById("publish-schedule");
+  if (!accountSelect || !scheduleSelect) return;
+
+  const account = accountSelect.value;
+  const schedule = scheduleSelect.value;
+
+  const platformName = currentPublishPlatform.toUpperCase();
+  const today = new Date();
+  const nowTime = today.toLocaleTimeString("de-DE", { hour: "2-digit", minute: "2-digit" });
+
+  let msg = "";
+  if (schedule === "now") {
+    msg = `Beitrag erfolgreich auf ${platformName} (${account}) veröffentlicht!`;
+    ACTIVITY_LOG.unshift({ time: nowTime, text: `${platformName}-Post auf Account ${account} veröffentlicht`, type: "success" });
+  } else {
+    let schedText = "geplant";
+    if (schedule === "schedule_1h") schedText = "in 1 Stunde geplant";
+    else if (schedule === "schedule_evening") schedText = "für heute Abend geplant (18:00)";
+    else if (schedule === "schedule_tomorrow") schedText = "für morgen früh geplant (08:00)";
+
+    msg = `Beitrag auf ${platformName} (${account}) ${schedText}!`;
+    ACTIVITY_LOG.unshift({ time: nowTime, text: `${platformName}-Post auf Account ${account} ${schedText}`, type: "success" });
+  }
+
+  renderAnalytics();
+  closePublishModal();
+  showToast(msg, "success");
 }

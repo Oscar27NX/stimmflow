@@ -32,8 +32,6 @@
     <div class="ribbon__separator"></div>
     <button class="ribbon__tab" data-view="personas" role="tab" id="tab-personas">👥 Personas &amp; Filter</button>
     <div class="ribbon__separator"></div>
-    <button class="ribbon__tab" data-view="copywriter" role="tab" id="tab-copywriter">🤖 KI-Textgenerator</button>
-    <div class="ribbon__separator"></div>
     <button class="ribbon__tab" data-view="newsletter" role="tab" id="tab-newsletter">📰 Newsletter</button>
     <div class="ribbon__separator"></div>
     <button class="ribbon__tab" data-view="output" role="tab" id="tab-output">📤 Content-Ausgabe</button>
@@ -68,28 +66,6 @@
 
         <!-- Charts Row -->
         <div class="charts-grid">
-          <!-- Engagement Over Time (Canvas) -->
-          <div class="chart-panel">
-            <div class="chart-panel__header">
-              <span>📈 Engagement-Verlauf (5 Wochen)</span>
-              <span class="badge badge--gray">Wöchentlich</span>
-            </div>
-            <div class="chart-panel__body">
-              <canvas id="engagement-canvas"></canvas>
-            </div>
-          </div>
-
-          <!-- Reach Per Platform (Bar) -->
-          <div class="chart-panel">
-            <div class="chart-panel__header">
-              <span>📊 Reichweite nach Plattform</span>
-              <span class="badge badge--gray">30 Tage</span>
-            </div>
-            <div class="chart-panel__body">
-              <div class="bar-chart" id="bar-chart-reach"></div>
-            </div>
-          </div>
-
           <!-- Category Distribution (Donut) -->
           <div class="chart-panel">
             <div class="chart-panel__header">
@@ -128,24 +104,31 @@
               </div>
             </div>
           </div>
+
+          <!-- Trend Scraping & Keywords (New) -->
+          <div class="chart-panel">
+            <div class="chart-panel__header">
+              <span>🔥 Social Media Trend-Scraping</span>
+              <span class="badge badge--orange">Hot keywords &amp; topics</span>
+            </div>
+            <div class="chart-panel__body" style="flex-direction:column;align-items:stretch;padding:16px;min-height:200px" id="trend-scraped-topics">
+              <!-- Rendered by JS -->
+            </div>
+          </div>
+
+          <!-- Persona Interests Analytics (New) -->
+          <div class="chart-panel">
+            <div class="chart-panel__header">
+              <span>👥 Marktsegmentierung &amp; Persona-Performance</span>
+              <span class="badge badge--blue">Interessen &amp; Reichweite</span>
+            </div>
+            <div class="chart-panel__body" style="flex-direction:column;align-items:stretch;padding:16px;min-height:200px" id="persona-interests-analytics">
+              <!-- Rendered by JS -->
+            </div>
+          </div>
         </div>
 
-        <!-- Top Content Table -->
-        <div class="section-label">Top Content (nach Reichweite)</div>
-        <div class="table-container">
-          <table>
-            <thead>
-              <tr>
-                <th>#</th>
-                <th style="min-width:250px">Content</th>
-                <th>Plattform</th>
-                <th>Reichweite</th>
-                <th>Engagement</th>
-              </tr>
-            </thead>
-            <tbody id="top-content-tbody"></tbody>
-          </table>
-        </div>
+
 
         <!-- Activity Feed -->
         <div class="section-label">Letzte Aktivitäten</div>
@@ -164,8 +147,9 @@
             <div class="content__subtitle">Heilbronner Webquellen verwalten und gescrapte Artikel einsehen</div>
           </div>
           <div class="btn-group">
+            <button class="btn btn--primary" onclick="openAddIdeaModal()">💡 Idee/Event erfassen</button>
             <button class="btn" onclick="showToast('Alle 12 Quellen werden gescraped…', 'info')">⟳ Alle scrapen</button>
-            <button class="btn btn--primary" onclick="showToast('Neue Quelle — Click Dummy', 'info')">+ Quelle hinzufügen</button>
+            <button class="btn" onclick="openSourcesModal()">🌐 Quellen verwalten / hinzufügen</button>
           </div>
         </div>
 
@@ -185,21 +169,6 @@
           </div>
         </div>
 
-        <div class="section-label">Konfigurierte Quellen (12)</div>
-        <div class="table-container">
-          <table>
-            <thead>
-              <tr>
-                <th>Quelle</th>
-                <th>URL</th>
-                <th>Zuletzt gescraped</th>
-                <th>Artikel</th>
-                <th>Status</th>
-              </tr>
-            </thead>
-            <tbody id="sources-tbody"></tbody>
-          </table>
-        </div>
 
         <div class="section-label">Gescrapte Artikel</div>
         <div class="table-container">
@@ -227,8 +196,9 @@
             <div class="content__subtitle">Zielgruppen-Profile und Artikel-Relevanz</div>
           </div>
           <div class="btn-group">
+            <button class="btn btn--primary" onclick="openAiGenerationModal()">⚡ KI-Post-Generator</button>
             <button class="btn" onclick="selectedPersonaId=null; renderPersonas();">Auswahl aufheben</button>
-            <button class="btn btn--primary" onclick="showToast('Neue Persona — Click Dummy', 'info')">+ Persona erstellen</button>
+            <button class="btn" onclick="showToast('Neue Persona — Click Dummy', 'info')">+ Persona erstellen</button>
           </div>
         </div>
 
@@ -238,68 +208,14 @@
         <div class="section-label">Artikel-Relevanz nach Persona</div>
         <div class="table-container">
           <table>
-            <thead>
-              <tr>
-                <th style="min-width:250px">Artikel</th>
-                <th>Kategorie</th>
-                <th>🎓 Gen-Z</th>
-                <th>💼 Professional</th>
-                <th>🏠 Lokal</th>
-              </tr>
+            <thead id="persona-articles-thead">
+              <!-- Rendered by JS -->
             </thead>
             <tbody id="persona-articles-tbody"></tbody>
           </table>
         </div>
       </section>
 
-
-      <!-- ─────────── VIEW 4: AI Copywriter ─────────── -->
-      <section class="view" id="view-copywriter">
-        <div class="content__header">
-          <div>
-            <div class="content__title">KI-Textgenerator</div>
-            <div class="content__subtitle">KI-gestützte Texterstellung mit Agentic Workflow</div>
-          </div>
-          <div class="btn-group">
-            <button class="btn" onclick="toggleAgenticPanel()">🔍 Workflow anzeigen</button>
-            <button class="btn" onclick="showToast('Chat gelöscht — Click Dummy', 'info')">🗑️ Chat leeren</button>
-            <button class="btn btn--primary" onclick="handleGenerate()">⚡ Generieren</button>
-          </div>
-        </div>
-
-        <div class="chat-layout">
-          <!-- Chat Panel -->
-          <div class="chat-panel">
-            <div class="chat-panel__header">💬 Chat mit KI-Assistent</div>
-            <div class="chat-messages" id="chat-messages"></div>
-            <div class="chat-input">
-              <input type="text" class="chat-input__field" placeholder="Nachricht eingeben…" onkeydown="if(event.key==='Enter'){showToast('Eingabe simuliert — Click Dummy', 'info')}">
-              <button class="btn btn--primary" onclick="showToast('Eingabe simuliert — Click Dummy', 'info')">Senden</button>
-            </div>
-          </div>
-
-          <!-- Output Preview -->
-          <div class="output-panel">
-            <div class="output-panel__header">📄 Generierte Vorschau</div>
-            <div class="output-tabs">
-              <button class="output-tab output-tab--active" data-platform="tiktok">🎵 TikTok</button>
-              <button class="output-tab" data-platform="instagram">📸 Instagram</button>
-              <button class="output-tab" data-platform="facebook">📘 Facebook</button>
-            </div>
-            <div class="output-preview" id="output-preview-content"></div>
-          </div>
-        </div>
-
-        <!-- Agentic Workflow Panel (collapsible) -->
-        <div class="agentic-panel" id="agentic-panel">
-          <div class="agentic-panel__header" onclick="toggleAgenticPanel()">
-            <span>🔍 Agentic Workflow — Pipeline-Schritte &amp; Quellreferenzen</span>
-            <span style="font-size:11px;color:var(--text-secondary)">▼ Klicken zum Ein-/Ausblenden</span>
-          </div>
-          <div class="agentic-panel__body" id="agentic-steps"></div>
-          <div class="agentic-footer" id="agentic-footer"></div>
-        </div>
-      </section>
 
 
       <!-- ─────────── VIEW 5: Newsletter ─────────── -->
@@ -487,6 +403,219 @@
       <button class="btn" onclick="closeModal()">Schließen</button>
       <button class="btn" onclick="showToast('Artikel an Newsletter hinzugefügt', 'success'); closeModal();">📰 Newsletter</button>
       <button class="btn btn--primary" onclick="showToast('Artikel an KI-Textgenerator gesendet', 'success'); closeModal();">🤖 An KI senden</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ IMAGE PICKER MODAL ═══════════════ -->
+<div class="modal-overlay" id="image-picker-overlay" style="display:none">
+  <div class="modal" style="width: 440px">
+    <div class="modal__header">
+      <span>Bild auswählen (Mediathek)</span>
+      <button class="modal__close" onclick="closeImagePicker()">✕</button>
+    </div>
+    <div class="modal__body">
+      <p style="font-size:12px;color:var(--text-secondary);margin-bottom:12px">Wähle ein Bild für deinen Beitrag aus:</p>
+      <div class="image-picker-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+        <div class="image-picker-item" onclick="selectPickerImage('assets/weindorf_event.png', 'Weindorf')" style="cursor:pointer;border:1px solid var(--border)">
+          <img src="assets/weindorf_event.png" style="width:100%;height:80px;object-fit:cover;display:block">
+          <div style="padding:6px;font-size:11px;font-weight:600;text-align:center">Heilbronner Weindorf</div>
+        </div>
+        <div class="image-picker-item" onclick="selectPickerImage('assets/ki_konferenz.png', 'KI-Konferenz')" style="cursor:pointer;border:1px solid var(--border)">
+          <img src="assets/ki_konferenz.png" style="width:100%;height:80px;object-fit:cover;display:block">
+          <div style="padding:6px;font-size:11px;font-weight:600;text-align:center">KI-Konferenz (Ipai)</div>
+        </div>
+        <div class="image-picker-item" onclick="selectPickerImage('assets/foodtruck_festival.png', 'Foodtruck')" style="cursor:pointer;border:1px solid var(--border)">
+          <img src="assets/foodtruck_festival.png" style="width:100%;height:80px;object-fit:cover;display:block">
+          <div style="padding:6px;font-size:11px;font-weight:600;text-align:center">Foodtruck-Festival</div>
+        </div>
+        <div class="image-picker-item" onclick="selectPickerImage('assets/sport_event.png', 'Sportevent')" style="cursor:pointer;border:1px solid var(--border)">
+          <img src="assets/sport_event.png" style="width:100%;height:80px;object-fit:cover;display:block">
+          <div style="padding:6px;font-size:11px;font-weight:600;text-align:center">Sportevent (SV HN)</div>
+        </div>
+      </div>
+    </div>
+    <div class="modal__footer">
+      <button class="btn" onclick="closeImagePicker()">Abbrechen</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ ADD IDEA MODAL ═══════════════ -->
+<div class="modal-overlay" id="add-idea-overlay" style="display:none">
+  <div class="modal" style="width: 500px">
+    <div class="modal__header">
+      <span>Idee / Vorläufiges Event erfassen</span>
+      <button class="modal__close" onclick="closeAddIdeaModal()">✕</button>
+    </div>
+    <div class="modal__body">
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <div>
+          <label style="font-weight:600;font-size:12px;margin-bottom:4px;display:block">Titel / Name des Events</label>
+          <input type="text" id="idea-title" placeholder="z.B. Weindorf Afterparty 2026" style="width:100%;padding:6px;border:1px solid var(--border);border-radius:var(--radius);outline:none">
+        </div>
+        <div>
+          <label style="font-weight:600;font-size:12px;margin-bottom:4px;display:block">Art des Beitrags</label>
+          <select id="idea-type" style="width:100%;padding:6px;border:1px solid var(--border);border-radius:var(--radius);outline:none">
+            <option value="preliminary" selected>Vorläufige Event-Information / Unfertige Idee</option>
+            <option value="full">Vollwertiger Artikel von Webseite (z.B. stimme.de)</option>
+          </select>
+        </div>
+        <div>
+          <label style="font-weight:600;font-size:12px;margin-bottom:4px;display:block">Beschreibung / Vorläufige Daten (KI extrahiert Details)</label>
+          <textarea id="idea-desc" rows="4" placeholder="Gib hier Details ein, z.B.: Afterparty findet im K2 statt, Datum steht noch nicht ganz fest, Eintritt ca. 5 Euro, Kooperation mit Weingütern..." style="width:100%;padding:6px;border:1px solid var(--border);border-radius:var(--radius);font-family:var(--font);font-size:13px;resize:vertical;outline:none"></textarea>
+        </div>
+        <div>
+          <label style="font-weight:600;font-size:12px;margin-bottom:4px;display:block">Bild hochladen (optional)</label>
+          <div class="img-placeholder img-placeholder--sm img-preview-container" id="idea-img-container" onclick="triggerImagePicker(this)" style="height:100px">
+            <span class="img-placeholder__icon">📷</span>
+            <span class="img-placeholder__label">Klicken, um Bild auszuwählen</span>
+            <div class="img-upload-overlay">➕ Bild hinzufügen</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal__footer">
+      <button class="btn" onclick="closeAddIdeaModal()">Schließen</button>
+      <button class="btn btn--primary" onclick="handleAddIdea()">🤖 Extrahieren &amp; Speichern</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ AI GENERATION MODAL ═══════════════ -->
+<div class="modal-overlay" id="ai-generation-overlay" style="display:none">
+  <div class="modal" style="width: 550px">
+    <div class="modal__header">
+      <span>🤖 KI-Post-Generator (Formular)</span>
+      <button class="modal__close" onclick="closeAiGenerationModal()">✕</button>
+    </div>
+    <div class="modal__body">
+      <div id="ai-form-container" style="display:flex;flex-direction:column;gap:12px">
+        <div>
+          <label style="font-weight:600;font-size:12px;margin-bottom:4px;display:block">Zielgruppe / Persona</label>
+          <select id="ai-persona-select" style="width:100%;padding:6px;border:1px solid var(--border);border-radius:var(--radius);outline:none">
+            <!-- Rendered by JS -->
+          </select>
+        </div>
+        <div>
+          <label style="font-weight:600;font-size:12px;margin-bottom:4px;display:block">Plattformen auswählen</label>
+          <div style="display:flex;gap:8px" id="ai-platform-toggles">
+            <button class="btn platform-toggle btn--active btn--primary" data-platform="tiktok" onclick="togglePlatformButton(this)">🎵 TikTok</button>
+            <button class="btn platform-toggle btn--active btn--primary" data-platform="instagram" onclick="togglePlatformButton(this)">📸 Instagram</button>
+            <button class="btn platform-toggle btn--active btn--primary" data-platform="facebook" onclick="togglePlatformButton(this)">📘 Facebook</button>
+          </div>
+        </div>
+        <div>
+          <label style="font-weight:600;font-size:12px;margin-bottom:4px;display:block">Quellartikel (optional)</label>
+          <select id="ai-article-select" onchange="fillTopicFromArticle(this)" style="width:100%;padding:6px;border:1px solid var(--border);border-radius:var(--radius);outline:none">
+            <option value="">-- Freie Texteingabe ohne Artikel --</option>
+            <!-- Rendered by JS -->
+          </select>
+        </div>
+        <div>
+          <label style="font-weight:600;font-size:12px;margin-bottom:4px;display:block">Thema / Leitidee der Posts</label>
+          <textarea id="ai-topic-desc" rows="3" placeholder="z.B. Einladung zum Heilbronner Weindorf 2026, Eintritt frei..." style="width:100%;padding:6px;border:1px solid var(--border);border-radius:var(--radius);font-family:var(--font);font-size:13px;resize:vertical;outline:none"></textarea>
+        </div>
+        <div>
+          <label style="font-weight:600;font-size:12px;margin-bottom:4px;display:block">Bild für Beitrags-Entwurf (optional)</label>
+          <div class="img-placeholder img-placeholder--sm img-preview-container" id="ai-img-container" onclick="triggerImagePicker(this)" style="height:100px">
+            <span class="img-placeholder__icon">📷</span>
+            <span class="img-placeholder__label">Klicken, um Bild auszuwählen</span>
+            <div class="img-upload-overlay">➕ Bild hinzufügen</div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- AI Results Panel (Initially Hidden) -->
+      <div id="ai-results-container" style="display:none;margin-top:12px;border-top:1px solid var(--border-light);padding-top:12px">
+        <div style="font-weight:600;font-size:12px;margin-bottom:6px;color:var(--primary)">📄 KI-Generierte Entwürfe:</div>
+        <div style="display:flex;flex-direction:column;gap:10px;max-height: 250px;overflow-y:auto" id="ai-results-list"></div>
+      </div>
+    </div>
+    <div class="modal__footer">
+      <button class="btn" onclick="closeAiGenerationModal()">Schließen</button>
+      <button class="btn btn--primary" id="ai-gen-btn" onclick="handleAiGeneration()">⚡ KI-Beiträge entwerfen</button>
+      <button class="btn btn--primary" id="ai-save-btn" onclick="saveAiDrafts()" style="display:none">📤 Entwürfe übernehmen</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ SOURCES LIST MODAL ═══════════════ -->
+<div class="modal-overlay" id="sources-list-overlay" style="display:none">
+  <div class="modal" style="width: 600px; max-width: 95vw">
+    <div class="modal__header">
+      <span>🌐 Konfigurierte Scraping-Quellen</span>
+      <button class="modal__close" onclick="closeSourcesModal()">✕</button>
+    </div>
+    <div class="modal__body">
+      <!-- Add Source Inline Form -->
+      <div style="background:var(--surface-alt);border:1px solid var(--border-light);padding:12px;margin-bottom:16px;border-radius:var(--radius)">
+        <div style="font-weight:600;font-size:12px;margin-bottom:8px;color:var(--primary)">➕ Neue Quelle hinzufügen</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr auto;gap:8px">
+          <input type="text" id="new-source-name" placeholder="Name (z.B. echo24 Sport)" style="padding:6px;font-size:12px;border:1px solid var(--border);border-radius:var(--radius);outline:none">
+          <input type="text" id="new-source-url" placeholder="URL (z.B. echo24.de/sport)" style="padding:6px;font-size:12px;border:1px solid var(--border);border-radius:var(--radius);outline:none">
+          <button class="btn btn--primary btn--sm" onclick="handleAddSource()" style="font-size:12px;font-weight:600">Hinzufügen</button>
+        </div>
+      </div>
+
+      <div class="section-label" style="margin-top:0">Aktive Scraping-Feeds</div>
+      <div class="table-container" style="max-height: 250px; overflow-y: auto; margin-bottom: 0">
+        <table>
+          <thead>
+            <tr style="position: sticky; top:0; background: var(--surface); z-index: 5">
+              <th>Quelle</th>
+              <th>URL</th>
+              <th>Zuletzt gescraped</th>
+              <th>Artikel</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody id="sources-tbody">
+            <!-- Rendered by JS -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="modal__footer">
+      <button class="btn" onclick="closeSourcesModal()">Schließen</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ PUBLISH ACCOUNT SELECTOR MODAL ═══════════════ -->
+<div class="modal-overlay" id="publish-account-overlay" style="display:none">
+  <div class="modal" style="width: 440px">
+    <div class="modal__header">
+      <span>📤 Kanal zum Veröffentlichen wählen</span>
+      <button class="modal__close" onclick="closePublishModal()">✕</button>
+    </div>
+    <div class="modal__body">
+      <p style="font-size:12px;color:var(--text-secondary);margin-bottom:12px">Wähle den offiziellen Kanal von Stimme / Echo24, auf dem der Beitrag veröffentlicht werden soll:</p>
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <div>
+          <label style="font-weight:600;font-size:12px;margin-bottom:4px;display:block">Plattform</label>
+          <input type="text" id="publish-platform-display" readonly style="width:100%;padding:6px;border:1px solid var(--border);background:var(--surface);border-radius:var(--radius);font-weight:600;outline:none">
+        </div>
+        <div>
+          <label style="font-weight:600;font-size:12px;margin-bottom:4px;display:block">Kanal / Account</label>
+          <select id="publish-account-select" style="width:100%;padding:6px;border:1px solid var(--border);border-radius:var(--radius);outline:none">
+            <!-- Rendered by JS -->
+          </select>
+        </div>
+        <div>
+          <label style="font-weight:600;font-size:12px;margin-bottom:4px;display:block">Veröffentlichungszeitpunkt</label>
+          <select id="publish-schedule" style="width:100%;padding:6px;border:1px solid var(--border);border-radius:var(--radius);outline:none">
+            <option value="now" selected>Sofort veröffentlichen</option>
+            <option value="schedule_1h">In 1 Stunde planen</option>
+            <option value="schedule_evening">Heute Abend planen (18:00)</option>
+            <option value="schedule_tomorrow">Morgen früh planen (08:00)</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="modal__footer">
+      <button class="btn" onclick="closePublishModal()">Abbrechen</button>
+      <button class="btn btn--primary" onclick="handleConfirmPublish()">🚀 Beitrag veröffentlichen</button>
     </div>
   </div>
 </div>
