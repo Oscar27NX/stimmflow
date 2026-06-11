@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="de">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,621 +8,689 @@
   <title>HS Content Pipeline — Heilbronner Stimme</title>
   <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
 
-<div id="app">
+  <div id="app">
 
-  <!-- ═══════════════ TOOLBAR ═══════════════ -->
-  <div class="toolbar">
-    <div class="toolbar__logo">
-      <div class="toolbar__logo-icon">HS</div>
-      <span>Content Pipeline</span>
+    <!-- ═══════════════ TOOLBAR ═══════════════ -->
+    <div class="toolbar">
+      <div class="toolbar__logo">
+        <div class="toolbar__logo-icon">HS</div>
+        <span>Content Pipeline</span>
+      </div>
+      <div class="toolbar__title">Heilbronner Stimme — KI-Content-Plattform</div>
+      <div class="toolbar__user">
+        <span>Praktikant:in</span>
+        <div class="toolbar__avatar">PS</div>
+      </div>
     </div>
-    <div class="toolbar__title">Heilbronner Stimme — KI-Content-Plattform</div>
-    <div class="toolbar__user">
-      <span>Praktikant:in</span>
-      <div class="toolbar__avatar">PS</div>
+
+    <!-- ═══════════════ RIBBON ═══════════════ -->
+    <nav class="ribbon" role="tablist">
+      <button class="ribbon__tab ribbon__tab--active" data-view="analytics" role="tab" id="tab-analytics">📊
+        Analytics</button>
+      <div class="ribbon__separator"></div>
+      <button class="ribbon__tab" data-view="sources" role="tab" id="tab-sources">🌐 Quellen &amp; Scraping</button>
+      <div class="ribbon__separator"></div>
+      <button class="ribbon__tab" data-view="personas" role="tab" id="tab-personas">👥 Personas &amp; Filter</button>
+      <div class="ribbon__separator"></div>
+      <button class="ribbon__tab" data-view="newsletter" role="tab" id="tab-newsletter">📰 Newsletter</button>
+      <div class="ribbon__separator"></div>
+      <button class="ribbon__tab" data-view="output" role="tab" id="tab-output">📤 Content-Ausgabe</button>
+    </nav>
+
+    <!-- ═══════════════ MAIN ═══════════════ -->
+    <div class="main">
+      <aside class="sidebar" id="sidebar"></aside>
+
+      <div class="content">
+
+        <!-- ─────────── VIEW 1: Analytics ─────────── -->
+        <section class="view view--active" id="view-analytics">
+          <div class="content__header">
+            <div>
+              <div class="content__title">Analytics &amp; Übersicht</div>
+              <div class="content__subtitle">Plattform-Performance, Reichweite und Content-Analyse</div>
+            </div>
+            <div class="btn-group">
+              <button class="btn" onclick="showToast('Daten werden aktualisiert…', 'info')">⟳ Aktualisieren</button>
+              <button class="btn btn--primary" onclick="showToast('Report wird exportiert… (Click Dummy)', 'info')">📥
+                Report exportieren</button>
+            </div>
+          </div>
+
+          <!-- Meta API Notice -->
+          <div class="api-notice">
+            ⚠️ <strong>Meta Graph API:</strong> Reichweite- und Engagement-Daten werden über die Meta Business API
+            abgerufen. Voraussetzung: Business-Account + App-Zugang. Aktueller Status: <strong
+              style="color:var(--success)">Verbunden</strong> (Instagram, Facebook). TikTok: <strong>Creator API
+              v2</strong>.
+          </div>
+
+          <!-- Summary Cards -->
+          <div class="cards-row" id="analytics-cards"></div>
+
+          <!-- Charts Row -->
+          <div class="charts-grid">
+            <!-- Category Distribution (Donut) -->
+            <div class="chart-panel">
+              <div class="chart-panel__header">
+                <span>🏷️ Content-Kategorien</span>
+                <span class="badge badge--gray">Alle Artikel</span>
+              </div>
+              <div class="chart-panel__body" id="donut-chart" style="align-items:center"></div>
+            </div>
+
+            <!-- Platform Follower Stats -->
+            <div class="chart-panel">
+              <div class="chart-panel__header">
+                <span>👥 Follower &amp; Accounts</span>
+                <span class="badge badge--green">Live</span>
+              </div>
+              <div class="chart-panel__body" style="flex-direction:column;align-items:stretch;padding:16px">
+                <div class="stat-row">
+                  <span class="stat-row__label">🎵 TikTok Follower</span>
+                  <span class="stat-row__value">1.240</span>
+                </div>
+                <div class="stat-row">
+                  <span class="stat-row__label">📸 Instagram Follower</span>
+                  <span class="stat-row__value">3.820</span>
+                </div>
+                <div class="stat-row">
+                  <span class="stat-row__label">📘 Facebook Follower</span>
+                  <span class="stat-row__value">5.460</span>
+                </div>
+                <div class="stat-row">
+                  <span class="stat-row__label">⌀ Engagement-Rate</span>
+                  <span class="stat-row__value" style="color:var(--success)">6.4%</span>
+                </div>
+                <div class="stat-row">
+                  <span class="stat-row__label">📈 Wachstum / Woche</span>
+                  <span class="stat-row__value" style="color:var(--success)">+2.3%</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Trend Scraping & Keywords (New) -->
+            <div class="chart-panel">
+              <div class="chart-panel__header">
+                <span>🔥 Social Media Trend-Scraping</span>
+                <span class="badge badge--orange">Hot keywords &amp; topics</span>
+              </div>
+              <div class="chart-panel__body"
+                style="flex-direction:column;align-items:stretch;padding:16px;min-height:200px"
+                id="trend-scraped-topics">
+                <!-- Rendered by JS -->
+              </div>
+            </div>
+
+            <!-- Persona Interests Analytics (New) -->
+            <div class="chart-panel">
+              <div class="chart-panel__header">
+                <span>👥 Marktsegmentierung &amp; Persona-Performance</span>
+                <span class="badge badge--blue">Interessen &amp; Reichweite</span>
+              </div>
+              <div class="chart-panel__body"
+                style="flex-direction:column;align-items:stretch;padding:16px;min-height:200px"
+                id="persona-interests-analytics">
+                <!-- Rendered by JS -->
+              </div>
+            </div>
+          </div>
+
+
+
+          <!-- Activity Feed -->
+          <div class="section-label">Letzte Aktivitäten</div>
+          <div class="activity-feed">
+            <div class="activity-feed__title">Aktivitätsprotokoll</div>
+            <div id="analytics-feed"></div>
+          </div>
+        </section>
+
+
+        <!-- ─────────── VIEW 2: Sources ─────────── -->
+        <section class="view" id="view-sources">
+          <div class="content__header">
+            <div>
+              <div class="content__title">Quellen &amp; Scraping</div>
+              <div class="content__subtitle">Heilbronner Webquellen verwalten und gescrapte Artikel einsehen</div>
+            </div>
+            <div class="btn-group">
+              <button class="btn btn--primary" onclick="openAddIdeaModal()">💡 Idee/Event erfassen</button>
+              <button class="btn" onclick="showToast('Alle 12 Quellen werden gescraped…', 'info')">⟳ Alle
+                scrapen</button>
+              <button class="btn" onclick="openSourcesModal()">🌐 Quellen verwalten / hinzufügen</button>
+            </div>
+          </div>
+
+          <div class="calendar-panel">
+            <div class="calendar-panel__header">
+              <span>📅 Content- und Scraping-Kalender (KW 23–24)</span>
+              <div class="calendar-legend">
+                <div class="calendar-legend__item">
+                  <div class="calendar-legend__dot" style="background:var(--warning)"></div> Scraping
+                </div>
+                <div class="calendar-legend__item">
+                  <div class="calendar-legend__dot" style="background:#1B1B1B"></div> TikTok
+                </div>
+                <div class="calendar-legend__item">
+                  <div class="calendar-legend__dot" style="background:#0078D4"></div> Instagram
+                </div>
+                <div class="calendar-legend__item">
+                  <div class="calendar-legend__dot" style="background:#107C10"></div> Facebook
+                </div>
+                <div class="calendar-legend__item">
+                  <div class="calendar-legend__dot" style="background:#6C3483"></div> Newsletter
+                </div>
+              </div>
+            </div>
+            <div class="calendar-grid" id="calendar-grid">
+              <!-- Rendered by JS -->
+            </div>
+          </div>
+
+
+          <div class="section-label">Gescrapte Artikel</div>
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th style="min-width:350px">Artikel</th>
+                  <th>Quelle</th>
+                  <th>Kategorie</th>
+                  <th>Datum</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody id="articles-tbody"></tbody>
+            </table>
+          </div>
+        </section>
+
+
+        <!-- ─────────── VIEW 3: Personas ─────────── -->
+        <section class="view" id="view-personas">
+          <div class="content__header">
+            <div>
+              <div class="content__title">Personas &amp; Filter</div>
+              <div class="content__subtitle">Zielgruppen-Profile und Artikel-Relevanz</div>
+            </div>
+            <div class="btn-group">
+              <button class="btn btn--primary" onclick="openAiGenerationModal()">⚡ KI-Post-Generator</button>
+              <button class="btn" onclick="selectedPersonaId=null; renderPersonas();">Auswahl aufheben</button>
+              <button class="btn" onclick="showToast('Neue Persona — Click Dummy', 'info')">+ Persona erstellen</button>
+            </div>
+          </div>
+
+          <div class="section-label">Zielgruppen-Personas</div>
+          <div class="persona-grid" id="persona-grid"></div>
+
+          <div class="section-label">Artikel-Relevanz nach Persona</div>
+          <div class="table-container">
+            <table>
+              <thead id="persona-articles-thead">
+                <!-- Rendered by JS -->
+              </thead>
+              <tbody id="persona-articles-tbody"></tbody>
+            </table>
+          </div>
+        </section>
+
+
+
+        <!-- ─────────── VIEW 5: Newsletter ─────────── -->
+        <section class="view" id="view-newsletter">
+          <div class="content__header">
+            <div>
+              <div class="content__title">Newsletter</div>
+              <div class="content__subtitle">Wöchentlicher Newsletter — KI-generiert aus gefilterten Artikeln</div>
+            </div>
+            <div class="btn-group">
+              <button class="btn" onclick="showToast('Vorschau wird aktualisiert…', 'info')">👁️ Vorschau</button>
+              <button class="btn" onclick="handleGenerateNewsletter()">🤖 KI generieren</button>
+              <button class="btn btn--primary"
+                onclick="showToast('Newsletter KW24 versendet — Click Dummy', 'success')">📧 Versenden</button>
+            </div>
+          </div>
+
+          <div class="newsletter-layout">
+            <!-- Config Panel -->
+            <div class="newsletter-config">
+              <div class="newsletter-config__group">
+                <label class="newsletter-config__label">Ausgabe</label>
+                <select>
+                  <option selected>KW 24 — 10. Juni 2026</option>
+                  <option>KW 23 — 03. Juni 2026</option>
+                  <option>KW 22 — 27. Mai 2026</option>
+                </select>
+              </div>
+              <div class="newsletter-config__group">
+                <label class="newsletter-config__label">Frequenz</label>
+                <select>
+                  <option selected>Wöchentlich</option>
+                  <option>Zweiwöchentlich</option>
+                  <option>Monatlich</option>
+                </select>
+              </div>
+              <div class="newsletter-config__group">
+                <label class="newsletter-config__label">Ziel-Persona</label>
+                <select>
+                  <option selected>Alle Personas</option>
+                  <option>🎓 Gen-Z Student</option>
+                  <option>💼 Young Professional</option>
+                  <option>🏠 Lokal-Enthusiast</option>
+                </select>
+              </div>
+              <div class="newsletter-config__group">
+                <label class="newsletter-config__label">Betreff</label>
+                <input type="text" value="Heilbronn diese Woche: Weindorf, KI-Konferenz & mehr">
+              </div>
+              <div class="newsletter-config__group">
+                <label class="newsletter-config__label">Max. Artikel</label>
+                <select>
+                  <option>3</option>
+                  <option selected>5</option>
+                  <option>7</option>
+                  <option>10</option>
+                </select>
+              </div>
+              <div class="newsletter-config__group">
+                <label class="newsletter-config__label">Tonalität</label>
+                <select>
+                  <option>Formell</option>
+                  <option selected>Locker-informativ</option>
+                  <option>Jugendlich</option>
+                </select>
+              </div>
+              <hr style="border:none;border-top:1px solid var(--border-light);margin:12px 0">
+              <div style="font-size:11px;color:var(--text-secondary)">
+                <strong>Statistik:</strong><br>
+                Abonnenten: 1.240<br>
+                Öffnungsrate: 38%<br>
+                Klickrate: 12%<br>
+                Letzte Ausgabe: KW 23
+              </div>
+            </div>
+
+            <!-- Newsletter Preview -->
+            <div class="newsletter-preview-frame">
+              <div class="newsletter-preview__header-bar">
+                <h2>📰 Heilbronner Stimme — Wochenbriefing</h2>
+                <p>KW 24 · 10. Juni 2026 · Dein wöchentliches Update aus Heilbronn</p>
+              </div>
+              <div class="newsletter-preview__body" id="newsletter-preview-body">
+                <!-- Rendered by JS -->
+              </div>
+              <div class="newsletter-preview__footer">
+                Du erhältst diesen Newsletter, weil du dich angemeldet hast. <span
+                  style="color:var(--primary);cursor:pointer"
+                  onclick="showToast('Abmelden — Click Dummy', 'info')">Abmelden</span> · Heilbronner Stimme ·
+                Kaiserstraße 14, 74072 Heilbronn
+              </div>
+            </div>
+          </div>
+        </section>
+
+
+        <!-- ─────────── VIEW 6: Content Output ─────────── -->
+        <section class="view" id="view-output">
+          <div class="content__header">
+            <div>
+              <div class="content__title">Content-Ausgabe</div>
+              <div class="content__subtitle">Fertige Posts mit Zeitplanung für TikTok, Instagram und Facebook</div>
+            </div>
+            <div class="btn-group">
+              <button class="btn" onclick="showToast('Export als CSV — Click Dummy', 'info')">📥 Exportieren</button>
+              <button class="btn btn--primary"
+                onclick="showToast('Alle Entwürfe veröffentlicht — Click Dummy', 'success')">Alle
+                veröffentlichen</button>
+            </div>
+          </div>
+
+          <!-- Time Slider -->
+          <div class="time-slider-panel">
+            <div class="time-slider-panel__title">🕐 Zeitplanung — Content-Alter und Vorausplanung</div>
+            <div class="time-slider-wrap">
+              <span class="time-slider-wrap__label">0</span>
+              <input type="range" id="time-slider" min="-14" max="14" value="0" step="1">
+              <span class="time-slider-wrap__label">+31 Tage</span>
+              <span class="time-slider-wrap__label time-slider-wrap__label--value" id="time-slider-value">Heute</span>
+            </div>
+            <div class="time-markers">
+              <span>0</span>
+              <span>7</span>
+              <span style="font-weight:600;color:var(--text-primary)">Heute</span>
+              <span>+24</span>
+              <span>+31</span>
+            </div>
+          </div>
+
+          <!-- Post Previews -->
+          <div class="section-label">Post-Vorschauen</div>
+          <div class="post-preview-grid" id="content-output-grid"></div>
+
+          <!-- Summary -->
+          <div class="section-label">Übersicht</div>
+          <div class="cards-row">
+            <div class="card card--accent">
+              <div class="card__label">TikTok</div>
+              <div class="card__value">3</div>
+              <div class="card__sub">1 veröffentlicht · 1 geplant · 1 Entwurf</div>
+            </div>
+            <div class="card card--success">
+              <div class="card__label">Instagram</div>
+              <div class="card__value">4</div>
+              <div class="card__sub">3 veröffentlicht · 1 Entwurf</div>
+            </div>
+            <div class="card card--warning">
+              <div class="card__label">Facebook</div>
+              <div class="card__value">2</div>
+              <div class="card__sub">1 veröffentlicht · 1 Entwurf</div>
+            </div>
+            <div class="card">
+              <div class="card__label">Newsletter</div>
+              <div class="card__value">4</div>
+              <div class="card__sub">3 versendet · 1 Entwurf (KW24)</div>
+            </div>
+          </div>
+        </section>
+
+      </div>
+    </div>
+
+    <!-- ═══════════════ STATUS BAR ═══════════════ -->
+    <div class="statusbar">
+      <div class="statusbar__item">
+        <span>📍 Ansicht:</span>
+        <span id="statusbar-view">Analytics & Übersicht</span>
+      </div>
+      <div class="statusbar__item">
+        <span class="status-dot status-dot--green"></span>
+        Pipeline aktiv
+      </div>
+      <div class="statusbar__spacer"></div>
+      <div class="statusbar__item">Quellen: 12</div>
+      <div class="statusbar__item">Artikel: 119</div>
+      <div class="statusbar__item">Meta API: ✓</div>
+      <div class="statusbar__item">v2.0 Click Dummy</div>
+    </div>
+
+  </div>
+
+  <!-- ═══════════════ MODAL ═══════════════ -->
+  <div class="modal-overlay" id="modal-overlay">
+    <div class="modal">
+      <div class="modal__header">
+        <span id="modal-title">Artikeldetails</span>
+        <button class="modal__close" id="modal-close">✕</button>
+      </div>
+      <div class="modal__body" id="modal-body"></div>
+      <div class="modal__footer">
+        <button class="btn" onclick="closeModal()">Schließen</button>
+        <button class="btn" onclick="showToast('Artikel an Newsletter hinzugefügt', 'success'); closeModal();">📰
+          Newsletter</button>
+        <button class="btn btn--primary"
+          onclick="showToast('Artikel an KI-Textgenerator gesendet', 'success'); closeModal();">🤖 An KI senden</button>
+      </div>
     </div>
   </div>
 
-  <!-- ═══════════════ RIBBON ═══════════════ -->
-  <nav class="ribbon" role="tablist">
-    <button class="ribbon__tab ribbon__tab--active" data-view="analytics" role="tab" id="tab-analytics">📊 Analytics</button>
-    <div class="ribbon__separator"></div>
-    <button class="ribbon__tab" data-view="sources" role="tab" id="tab-sources">🌐 Quellen &amp; Scraping</button>
-    <div class="ribbon__separator"></div>
-    <button class="ribbon__tab" data-view="personas" role="tab" id="tab-personas">👥 Personas &amp; Filter</button>
-    <div class="ribbon__separator"></div>
-    <button class="ribbon__tab" data-view="newsletter" role="tab" id="tab-newsletter">📰 Newsletter</button>
-    <div class="ribbon__separator"></div>
-    <button class="ribbon__tab" data-view="output" role="tab" id="tab-output">📤 Content-Ausgabe</button>
-  </nav>
+  <!-- ═══════════════ IMAGE PICKER MODAL ═══════════════ -->
+  <div class="modal-overlay" id="image-picker-overlay" style="display:none">
+    <div class="modal" style="width: 440px">
+      <div class="modal__header">
+        <span>Bild auswählen (Mediathek)</span>
+        <button class="modal__close" onclick="closeImagePicker()">✕</button>
+      </div>
+      <div class="modal__body">
+        <p style="font-size:12px;color:var(--text-secondary);margin-bottom:12px">Wähle ein Bild für deinen Beitrag aus:
+        </p>
+        <div class="image-picker-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+          <div class="image-picker-item" onclick="selectPickerImage('assets/weindorf_event.png', 'Weindorf')"
+            style="cursor:pointer;border:1px solid var(--border)">
+            <img src="assets/weindorf_event.png" style="width:100%;height:80px;object-fit:cover;display:block">
+            <div style="padding:6px;font-size:11px;font-weight:600;text-align:center">Heilbronner Weindorf</div>
+          </div>
+          <div class="image-picker-item" onclick="selectPickerImage('assets/ki_konferenz.png', 'KI-Konferenz')"
+            style="cursor:pointer;border:1px solid var(--border)">
+            <img src="assets/ki_konferenz.png" style="width:100%;height:80px;object-fit:cover;display:block">
+            <div style="padding:6px;font-size:11px;font-weight:600;text-align:center">KI-Konferenz (Ipai)</div>
+          </div>
+          <div class="image-picker-item" onclick="selectPickerImage('assets/foodtruck_festival.png', 'Foodtruck')"
+            style="cursor:pointer;border:1px solid var(--border)">
+            <img src="assets/foodtruck_festival.png" style="width:100%;height:80px;object-fit:cover;display:block">
+            <div style="padding:6px;font-size:11px;font-weight:600;text-align:center">Foodtruck-Festival</div>
+          </div>
+          <div class="image-picker-item" onclick="selectPickerImage('assets/sport_event.png', 'Sportevent')"
+            style="cursor:pointer;border:1px solid var(--border)">
+            <img src="assets/sport_event.png" style="width:100%;height:80px;object-fit:cover;display:block">
+            <div style="padding:6px;font-size:11px;font-weight:600;text-align:center">Sportevent (SV HN)</div>
+          </div>
+        </div>
+      </div>
+      <div class="modal__footer">
+        <button class="btn" onclick="closeImagePicker()">Abbrechen</button>
+      </div>
+    </div>
+  </div>
 
-  <!-- ═══════════════ MAIN ═══════════════ -->
-  <div class="main">
-    <aside class="sidebar" id="sidebar"></aside>
-
-    <div class="content">
-
-      <!-- ─────────── VIEW 1: Analytics ─────────── -->
-      <section class="view view--active" id="view-analytics">
-        <div class="content__header">
+  <!-- ═══════════════ ADD IDEA MODAL ═══════════════ -->
+  <div class="modal-overlay" id="add-idea-overlay" style="display:none">
+    <div class="modal" style="width: 500px">
+      <div class="modal__header">
+        <span>Idee / Vorläufiges Event erfassen</span>
+        <button class="modal__close" onclick="closeAddIdeaModal()">✕</button>
+      </div>
+      <div class="modal__body">
+        <div style="display:flex;flex-direction:column;gap:12px">
           <div>
-            <div class="content__title">Analytics &amp; Übersicht</div>
-            <div class="content__subtitle">Plattform-Performance, Reichweite und Content-Analyse</div>
+            <label style="font-weight:600;font-size:12px;margin-bottom:4px;display:block">Titel / Name des
+              Events</label>
+            <input type="text" id="idea-title" placeholder="z.B. Weindorf Afterparty 2026"
+              style="width:100%;padding:6px;border:1px solid var(--border);border-radius:var(--radius);outline:none">
           </div>
-          <div class="btn-group">
-            <button class="btn" onclick="showToast('Daten werden aktualisiert…', 'info')">⟳ Aktualisieren</button>
-            <button class="btn btn--primary" onclick="showToast('Report wird exportiert… (Click Dummy)', 'info')">📥 Report exportieren</button>
-          </div>
-        </div>
-
-        <!-- Meta API Notice -->
-        <div class="api-notice">
-          ⚠️ <strong>Meta Graph API:</strong> Reichweite- und Engagement-Daten werden über die Meta Business API abgerufen. Voraussetzung: Business-Account + App-Zugang. Aktueller Status: <strong style="color:var(--success)">Verbunden</strong> (Instagram, Facebook). TikTok: <strong>Creator API v2</strong>.
-        </div>
-
-        <!-- Summary Cards -->
-        <div class="cards-row" id="analytics-cards"></div>
-
-        <!-- Charts Row -->
-        <div class="charts-grid">
-          <!-- Category Distribution (Donut) -->
-          <div class="chart-panel">
-            <div class="chart-panel__header">
-              <span>🏷️ Content-Kategorien</span>
-              <span class="badge badge--gray">Alle Artikel</span>
-            </div>
-            <div class="chart-panel__body" id="donut-chart" style="align-items:center"></div>
-          </div>
-
-          <!-- Platform Follower Stats -->
-          <div class="chart-panel">
-            <div class="chart-panel__header">
-              <span>👥 Follower &amp; Accounts</span>
-              <span class="badge badge--green">Live</span>
-            </div>
-            <div class="chart-panel__body" style="flex-direction:column;align-items:stretch;padding:16px">
-              <div class="stat-row">
-                <span class="stat-row__label">🎵 TikTok Follower</span>
-                <span class="stat-row__value">1.240</span>
-              </div>
-              <div class="stat-row">
-                <span class="stat-row__label">📸 Instagram Follower</span>
-                <span class="stat-row__value">3.820</span>
-              </div>
-              <div class="stat-row">
-                <span class="stat-row__label">📘 Facebook Follower</span>
-                <span class="stat-row__value">5.460</span>
-              </div>
-              <div class="stat-row">
-                <span class="stat-row__label">⌀ Engagement-Rate</span>
-                <span class="stat-row__value" style="color:var(--success)">6.4%</span>
-              </div>
-              <div class="stat-row">
-                <span class="stat-row__label">📈 Wachstum / Woche</span>
-                <span class="stat-row__value" style="color:var(--success)">+2.3%</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- Trend Scraping & Keywords (New) -->
-          <div class="chart-panel">
-            <div class="chart-panel__header">
-              <span>🔥 Social Media Trend-Scraping</span>
-              <span class="badge badge--orange">Hot keywords &amp; topics</span>
-            </div>
-            <div class="chart-panel__body" style="flex-direction:column;align-items:stretch;padding:16px;min-height:200px" id="trend-scraped-topics">
-              <!-- Rendered by JS -->
-            </div>
-          </div>
-
-          <!-- Persona Interests Analytics (New) -->
-          <div class="chart-panel">
-            <div class="chart-panel__header">
-              <span>👥 Marktsegmentierung &amp; Persona-Performance</span>
-              <span class="badge badge--blue">Interessen &amp; Reichweite</span>
-            </div>
-            <div class="chart-panel__body" style="flex-direction:column;align-items:stretch;padding:16px;min-height:200px" id="persona-interests-analytics">
-              <!-- Rendered by JS -->
-            </div>
-          </div>
-        </div>
-
-
-
-        <!-- Activity Feed -->
-        <div class="section-label">Letzte Aktivitäten</div>
-        <div class="activity-feed">
-          <div class="activity-feed__title">Aktivitätsprotokoll</div>
-          <div id="analytics-feed"></div>
-        </div>
-      </section>
-
-
-      <!-- ─────────── VIEW 2: Sources ─────────── -->
-      <section class="view" id="view-sources">
-        <div class="content__header">
           <div>
-            <div class="content__title">Quellen &amp; Scraping</div>
-            <div class="content__subtitle">Heilbronner Webquellen verwalten und gescrapte Artikel einsehen</div>
+            <label style="font-weight:600;font-size:12px;margin-bottom:4px;display:block">Art des Beitrags</label>
+            <select id="idea-type"
+              style="width:100%;padding:6px;border:1px solid var(--border);border-radius:var(--radius);outline:none">
+              <option value="preliminary" selected>Vorläufige Event-Information / Unfertige Idee</option>
+              <option value="full">Vollwertiger Artikel von Webseite (z.B. stimme.de)</option>
+            </select>
           </div>
-          <div class="btn-group">
-            <button class="btn btn--primary" onclick="openAddIdeaModal()">💡 Idee/Event erfassen</button>
-            <button class="btn" onclick="showToast('Alle 12 Quellen werden gescraped…', 'info')">⟳ Alle scrapen</button>
-            <button class="btn" onclick="openSourcesModal()">🌐 Quellen verwalten / hinzufügen</button>
+          <div>
+            <label style="font-weight:600;font-size:12px;margin-bottom:4px;display:block">Beschreibung / Vorläufige
+              Daten (KI extrahiert Details)</label>
+            <textarea id="idea-desc" rows="4"
+              placeholder="Gib hier Details ein, z.B.: Afterparty findet im K2 statt, Datum steht noch nicht ganz fest, Eintritt ca. 5 Euro, Kooperation mit Weingütern..."
+              style="width:100%;padding:6px;border:1px solid var(--border);border-radius:var(--radius);font-family:var(--font);font-size:13px;resize:vertical;outline:none"></textarea>
           </div>
-        </div>
-
-        <div class="calendar-panel">
-          <div class="calendar-panel__header">
-            <span>📅 Content- und Scraping-Kalender (KW 23–24)</span>
-            <div class="calendar-legend">
-              <div class="calendar-legend__item"><div class="calendar-legend__dot" style="background:var(--warning)"></div> Scraping</div>
-              <div class="calendar-legend__item"><div class="calendar-legend__dot" style="background:#1B1B1B"></div> TikTok</div>
-              <div class="calendar-legend__item"><div class="calendar-legend__dot" style="background:#0078D4"></div> Instagram</div>
-              <div class="calendar-legend__item"><div class="calendar-legend__dot" style="background:#107C10"></div> Facebook</div>
-              <div class="calendar-legend__item"><div class="calendar-legend__dot" style="background:#6C3483"></div> Newsletter</div>
+          <div>
+            <label style="font-weight:600;font-size:12px;margin-bottom:4px;display:block">Bild hochladen
+              (optional)</label>
+            <div class="img-placeholder img-placeholder--sm img-preview-container" id="idea-img-container"
+              onclick="triggerImagePicker(this)" style="height:100px">
+              <span class="img-placeholder__icon">📷</span>
+              <span class="img-placeholder__label">Klicken, um Bild auszuwählen</span>
+              <div class="img-upload-overlay">➕ Bild hinzufügen</div>
             </div>
           </div>
-          <div class="calendar-grid" id="calendar-grid">
-            <!-- Rendered by JS -->
+        </div>
+      </div>
+      <div class="modal__footer">
+        <button class="btn" onclick="closeAddIdeaModal()">Schließen</button>
+        <button class="btn btn--primary" onclick="handleAddIdea()">🤖 Extrahieren &amp; Speichern</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════ AI GENERATION MODAL ═══════════════ -->
+  <div class="modal-overlay" id="ai-generation-overlay" style="display:none">
+    <div class="modal" style="width: 550px">
+      <div class="modal__header">
+        <span>🤖 KI-Post-Generator (Formular)</span>
+        <button class="modal__close" onclick="closeAiGenerationModal()">✕</button>
+      </div>
+      <div class="modal__body">
+        <div id="ai-form-container" style="display:flex;flex-direction:column;gap:12px">
+          <div>
+            <label style="font-weight:600;font-size:12px;margin-bottom:4px;display:block">Zielgruppe / Persona</label>
+            <select id="ai-persona-select"
+              style="width:100%;padding:6px;border:1px solid var(--border);border-radius:var(--radius);outline:none">
+              <!-- Rendered by JS -->
+            </select>
+          </div>
+          <div>
+            <label style="font-weight:600;font-size:12px;margin-bottom:4px;display:block">Plattformen auswählen</label>
+            <div style="display:flex;gap:8px" id="ai-platform-toggles">
+              <button class="btn platform-toggle btn--active btn--primary" data-platform="tiktok"
+                onclick="togglePlatformButton(this)">🎵 TikTok</button>
+              <button class="btn platform-toggle btn--active btn--primary" data-platform="instagram"
+                onclick="togglePlatformButton(this)">📸 Instagram</button>
+              <button class="btn platform-toggle btn--active btn--primary" data-platform="facebook"
+                onclick="togglePlatformButton(this)">📘 Facebook</button>
+            </div>
+          </div>
+          <div>
+            <label style="font-weight:600;font-size:12px;margin-bottom:4px;display:block">Quellartikel
+              (optional)</label>
+            <select id="ai-article-select" onchange="fillTopicFromArticle(this)"
+              style="width:100%;padding:6px;border:1px solid var(--border);border-radius:var(--radius);outline:none">
+              <option value="">-- Freie Texteingabe ohne Artikel --</option>
+              <!-- Rendered by JS -->
+            </select>
+          </div>
+          <div>
+            <label style="font-weight:600;font-size:12px;margin-bottom:4px;display:block">Thema / Leitidee der
+              Posts</label>
+            <textarea id="ai-topic-desc" rows="3"
+              placeholder="z.B. Einladung zum Heilbronner Weindorf 2026, Eintritt frei..."
+              style="width:100%;padding:6px;border:1px solid var(--border);border-radius:var(--radius);font-family:var(--font);font-size:13px;resize:vertical;outline:none"></textarea>
+          </div>
+          <div>
+            <label style="font-weight:600;font-size:12px;margin-bottom:4px;display:block">Bild für Beitrags-Entwurf
+              (optional)</label>
+            <div class="img-placeholder img-placeholder--sm img-preview-container" id="ai-img-container"
+              onclick="triggerImagePicker(this)" style="height:100px">
+              <span class="img-placeholder__icon">📷</span>
+              <span class="img-placeholder__label">Klicken, um Bild auszuwählen</span>
+              <div class="img-upload-overlay">➕ Bild hinzufügen</div>
+            </div>
           </div>
         </div>
 
+        <!-- AI Results Panel (Initially Hidden) -->
+        <div id="ai-results-container"
+          style="display:none;margin-top:12px;border-top:1px solid var(--border-light);padding-top:12px">
+          <div style="font-weight:600;font-size:12px;margin-bottom:6px;color:var(--primary)">📄 KI-Generierte Entwürfe:
+          </div>
+          <div style="display:flex;flex-direction:column;gap:10px;max-height: 250px;overflow-y:auto"
+            id="ai-results-list"></div>
+        </div>
+      </div>
+      <div class="modal__footer">
+        <button class="btn" onclick="closeAiGenerationModal()">Schließen</button>
+        <button class="btn btn--primary" id="ai-gen-btn" onclick="handleAiGeneration()">⚡ KI-Beiträge entwerfen</button>
+        <button class="btn btn--primary" id="ai-save-btn" onclick="saveAiDrafts()" style="display:none">📤 Entwürfe
+          übernehmen</button>
+      </div>
+    </div>
+  </div>
 
-        <div class="section-label">Gescrapte Artikel</div>
-        <div class="table-container">
+  <!-- ═══════════════ SOURCES LIST MODAL ═══════════════ -->
+  <div class="modal-overlay" id="sources-list-overlay" style="display:none">
+    <div class="modal" style="width: 600px; max-width: 95vw">
+      <div class="modal__header">
+        <span>🌐 Konfigurierte Scraping-Quellen</span>
+        <button class="modal__close" onclick="closeSourcesModal()">✕</button>
+      </div>
+      <div class="modal__body">
+        <!-- Add Source Inline Form -->
+        <div
+          style="background:var(--surface-alt);border:1px solid var(--border-light);padding:12px;margin-bottom:16px;border-radius:var(--radius)">
+          <div style="font-weight:600;font-size:12px;margin-bottom:8px;color:var(--primary)">➕ Neue Quelle hinzufügen
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr auto;gap:8px">
+            <input type="text" id="new-source-name" placeholder="Name (z.B. echo24 Sport)"
+              style="padding:6px;font-size:12px;border:1px solid var(--border);border-radius:var(--radius);outline:none">
+            <input type="text" id="new-source-url" placeholder="URL (z.B. echo24.de/sport)"
+              style="padding:6px;font-size:12px;border:1px solid var(--border);border-radius:var(--radius);outline:none">
+            <button class="btn btn--primary btn--sm" onclick="handleAddSource()"
+              style="font-size:12px;font-weight:600">Hinzufügen</button>
+          </div>
+        </div>
+
+        <div class="section-label" style="margin-top:0">Aktive Scraping-Feeds</div>
+        <div class="table-container" style="max-height: 250px; overflow-y: auto; margin-bottom: 0">
           <table>
             <thead>
-              <tr>
-                <th style="min-width:350px">Artikel</th>
+              <tr style="position: sticky; top:0; background: var(--surface); z-index: 5">
                 <th>Quelle</th>
-                <th>Kategorie</th>
-                <th>Datum</th>
+                <th>URL</th>
+                <th>Zuletzt gescraped</th>
+                <th>Artikel</th>
                 <th>Status</th>
               </tr>
             </thead>
-            <tbody id="articles-tbody"></tbody>
+            <tbody id="sources-tbody">
+              <!-- Rendered by JS -->
+            </tbody>
           </table>
         </div>
-      </section>
+      </div>
+      <div class="modal__footer">
+        <button class="btn" onclick="closeSourcesModal()">Schließen</button>
+      </div>
+    </div>
+  </div>
 
-
-      <!-- ─────────── VIEW 3: Personas ─────────── -->
-      <section class="view" id="view-personas">
-        <div class="content__header">
+  <!-- ═══════════════ PUBLISH ACCOUNT SELECTOR MODAL ═══════════════ -->
+  <div class="modal-overlay" id="publish-account-overlay" style="display:none">
+    <div class="modal" style="width: 440px">
+      <div class="modal__header">
+        <span>📤 Kanal zum Veröffentlichen wählen</span>
+        <button class="modal__close" onclick="closePublishModal()">✕</button>
+      </div>
+      <div class="modal__body">
+        <p style="font-size:12px;color:var(--text-secondary);margin-bottom:12px">Wähle den offiziellen Kanal von Stimme
+          / Echo24, auf dem der Beitrag veröffentlicht werden soll:</p>
+        <div style="display:flex;flex-direction:column;gap:12px">
           <div>
-            <div class="content__title">Personas &amp; Filter</div>
-            <div class="content__subtitle">Zielgruppen-Profile und Artikel-Relevanz</div>
+            <label style="font-weight:600;font-size:12px;margin-bottom:4px;display:block">Plattform</label>
+            <input type="text" id="publish-platform-display" readonly
+              style="width:100%;padding:6px;border:1px solid var(--border);background:var(--surface);border-radius:var(--radius);font-weight:600;outline:none">
           </div>
-          <div class="btn-group">
-            <button class="btn btn--primary" onclick="openAiGenerationModal()">⚡ KI-Post-Generator</button>
-            <button class="btn" onclick="selectedPersonaId=null; renderPersonas();">Auswahl aufheben</button>
-            <button class="btn" onclick="showToast('Neue Persona — Click Dummy', 'info')">+ Persona erstellen</button>
-          </div>
-        </div>
-
-        <div class="section-label">Zielgruppen-Personas</div>
-        <div class="persona-grid" id="persona-grid"></div>
-
-        <div class="section-label">Artikel-Relevanz nach Persona</div>
-        <div class="table-container">
-          <table>
-            <thead id="persona-articles-thead">
+          <div>
+            <label style="font-weight:600;font-size:12px;margin-bottom:4px;display:block">Kanal / Account</label>
+            <select id="publish-account-select"
+              style="width:100%;padding:6px;border:1px solid var(--border);border-radius:var(--radius);outline:none">
               <!-- Rendered by JS -->
-            </thead>
-            <tbody id="persona-articles-tbody"></tbody>
-          </table>
-        </div>
-      </section>
-
-
-
-      <!-- ─────────── VIEW 5: Newsletter ─────────── -->
-      <section class="view" id="view-newsletter">
-        <div class="content__header">
+            </select>
+          </div>
           <div>
-            <div class="content__title">Newsletter</div>
-            <div class="content__subtitle">Wöchentlicher Newsletter — KI-generiert aus gefilterten Artikeln</div>
-          </div>
-          <div class="btn-group">
-            <button class="btn" onclick="showToast('Vorschau wird aktualisiert…', 'info')">👁️ Vorschau</button>
-            <button class="btn" onclick="handleGenerateNewsletter()">🤖 KI generieren</button>
-            <button class="btn btn--primary" onclick="showToast('Newsletter KW24 versendet — Click Dummy', 'success')">📧 Versenden</button>
-          </div>
-        </div>
-
-        <div class="newsletter-layout">
-          <!-- Config Panel -->
-          <div class="newsletter-config">
-            <div class="newsletter-config__group">
-              <label class="newsletter-config__label">Ausgabe</label>
-              <select>
-                <option selected>KW 24 — 10. Juni 2026</option>
-                <option>KW 23 — 03. Juni 2026</option>
-                <option>KW 22 — 27. Mai 2026</option>
-              </select>
-            </div>
-            <div class="newsletter-config__group">
-              <label class="newsletter-config__label">Frequenz</label>
-              <select>
-                <option selected>Wöchentlich</option>
-                <option>Zweiwöchentlich</option>
-                <option>Monatlich</option>
-              </select>
-            </div>
-            <div class="newsletter-config__group">
-              <label class="newsletter-config__label">Ziel-Persona</label>
-              <select>
-                <option selected>Alle Personas</option>
-                <option>🎓 Gen-Z Student</option>
-                <option>💼 Young Professional</option>
-                <option>🏠 Lokal-Enthusiast</option>
-              </select>
-            </div>
-            <div class="newsletter-config__group">
-              <label class="newsletter-config__label">Betreff</label>
-              <input type="text" value="Heilbronn diese Woche: Weindorf, KI-Konferenz & mehr">
-            </div>
-            <div class="newsletter-config__group">
-              <label class="newsletter-config__label">Max. Artikel</label>
-              <select>
-                <option>3</option>
-                <option selected>5</option>
-                <option>7</option>
-                <option>10</option>
-              </select>
-            </div>
-            <div class="newsletter-config__group">
-              <label class="newsletter-config__label">Tonalität</label>
-              <select>
-                <option>Formell</option>
-                <option selected>Locker-informativ</option>
-                <option>Jugendlich</option>
-              </select>
-            </div>
-            <hr style="border:none;border-top:1px solid var(--border-light);margin:12px 0">
-            <div style="font-size:11px;color:var(--text-secondary)">
-              <strong>Statistik:</strong><br>
-              Abonnenten: 1.240<br>
-              Öffnungsrate: 38%<br>
-              Klickrate: 12%<br>
-              Letzte Ausgabe: KW 23
-            </div>
-          </div>
-
-          <!-- Newsletter Preview -->
-          <div class="newsletter-preview-frame">
-            <div class="newsletter-preview__header-bar">
-              <h2>📰 Heilbronner Stimme — Wochenbriefing</h2>
-              <p>KW 24 · 10. Juni 2026 · Dein wöchentliches Update aus Heilbronn</p>
-            </div>
-            <div class="newsletter-preview__body" id="newsletter-preview-body">
-              <!-- Rendered by JS -->
-            </div>
-            <div class="newsletter-preview__footer">
-              Du erhältst diesen Newsletter, weil du dich angemeldet hast. <span style="color:var(--primary);cursor:pointer" onclick="showToast('Abmelden — Click Dummy', 'info')">Abmelden</span> · Heilbronner Stimme · Kaiserstraße 14, 74072 Heilbronn
-            </div>
-          </div>
-        </div>
-      </section>
-
-
-      <!-- ─────────── VIEW 6: Content Output ─────────── -->
-      <section class="view" id="view-output">
-        <div class="content__header">
-          <div>
-            <div class="content__title">Content-Ausgabe</div>
-            <div class="content__subtitle">Fertige Posts mit Zeitplanung für TikTok, Instagram und Facebook</div>
-          </div>
-          <div class="btn-group">
-            <button class="btn" onclick="showToast('Export als CSV — Click Dummy', 'info')">📥 Exportieren</button>
-            <button class="btn btn--primary" onclick="showToast('Alle Entwürfe veröffentlicht — Click Dummy', 'success')">Alle veröffentlichen</button>
-          </div>
-        </div>
-
-        <!-- Time Slider -->
-        <div class="time-slider-panel">
-          <div class="time-slider-panel__title">🕐 Zeitplanung — Content-Alter und Vorausplanung</div>
-          <div class="time-slider-wrap">
-            <span class="time-slider-wrap__label">-14 Tage</span>
-            <input type="range" id="time-slider" min="-14" max="14" value="0" step="1">
-            <span class="time-slider-wrap__label">+14 Tage</span>
-            <span class="time-slider-wrap__label time-slider-wrap__label--value" id="time-slider-value">Heute</span>
-          </div>
-          <div class="time-markers">
-            <span>-14</span>
-            <span>-7</span>
-            <span style="font-weight:600;color:var(--text-primary)">Heute</span>
-            <span>+7</span>
-            <span>+14</span>
-          </div>
-        </div>
-
-        <!-- Post Previews -->
-        <div class="section-label">Post-Vorschauen</div>
-        <div class="post-preview-grid" id="content-output-grid"></div>
-
-        <!-- Summary -->
-        <div class="section-label">Übersicht</div>
-        <div class="cards-row">
-          <div class="card card--accent">
-            <div class="card__label">TikTok</div>
-            <div class="card__value">3</div>
-            <div class="card__sub">1 veröffentlicht · 1 geplant · 1 Entwurf</div>
-          </div>
-          <div class="card card--success">
-            <div class="card__label">Instagram</div>
-            <div class="card__value">4</div>
-            <div class="card__sub">3 veröffentlicht · 1 Entwurf</div>
-          </div>
-          <div class="card card--warning">
-            <div class="card__label">Facebook</div>
-            <div class="card__value">2</div>
-            <div class="card__sub">1 veröffentlicht · 1 Entwurf</div>
-          </div>
-          <div class="card">
-            <div class="card__label">Newsletter</div>
-            <div class="card__value">4</div>
-            <div class="card__sub">3 versendet · 1 Entwurf (KW24)</div>
-          </div>
-        </div>
-      </section>
-
-    </div>
-  </div>
-
-  <!-- ═══════════════ STATUS BAR ═══════════════ -->
-  <div class="statusbar">
-    <div class="statusbar__item">
-      <span>📍 Ansicht:</span>
-      <span id="statusbar-view">Analytics & Übersicht</span>
-    </div>
-    <div class="statusbar__item">
-      <span class="status-dot status-dot--green"></span>
-      Pipeline aktiv
-    </div>
-    <div class="statusbar__spacer"></div>
-    <div class="statusbar__item">Quellen: 12</div>
-    <div class="statusbar__item">Artikel: 119</div>
-    <div class="statusbar__item">Meta API: ✓</div>
-    <div class="statusbar__item">v2.0 Click Dummy</div>
-  </div>
-
-</div>
-
-<!-- ═══════════════ MODAL ═══════════════ -->
-<div class="modal-overlay" id="modal-overlay">
-  <div class="modal">
-    <div class="modal__header">
-      <span id="modal-title">Artikeldetails</span>
-      <button class="modal__close" id="modal-close">✕</button>
-    </div>
-    <div class="modal__body" id="modal-body"></div>
-    <div class="modal__footer">
-      <button class="btn" onclick="closeModal()">Schließen</button>
-      <button class="btn" onclick="showToast('Artikel an Newsletter hinzugefügt', 'success'); closeModal();">📰 Newsletter</button>
-      <button class="btn btn--primary" onclick="showToast('Artikel an KI-Textgenerator gesendet', 'success'); closeModal();">🤖 An KI senden</button>
-    </div>
-  </div>
-</div>
-
-<!-- ═══════════════ IMAGE PICKER MODAL ═══════════════ -->
-<div class="modal-overlay" id="image-picker-overlay" style="display:none">
-  <div class="modal" style="width: 440px">
-    <div class="modal__header">
-      <span>Bild auswählen (Mediathek)</span>
-      <button class="modal__close" onclick="closeImagePicker()">✕</button>
-    </div>
-    <div class="modal__body">
-      <p style="font-size:12px;color:var(--text-secondary);margin-bottom:12px">Wähle ein Bild für deinen Beitrag aus:</p>
-      <div class="image-picker-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
-        <div class="image-picker-item" onclick="selectPickerImage('assets/weindorf_event.png', 'Weindorf')" style="cursor:pointer;border:1px solid var(--border)">
-          <img src="assets/weindorf_event.png" style="width:100%;height:80px;object-fit:cover;display:block">
-          <div style="padding:6px;font-size:11px;font-weight:600;text-align:center">Heilbronner Weindorf</div>
-        </div>
-        <div class="image-picker-item" onclick="selectPickerImage('assets/ki_konferenz.png', 'KI-Konferenz')" style="cursor:pointer;border:1px solid var(--border)">
-          <img src="assets/ki_konferenz.png" style="width:100%;height:80px;object-fit:cover;display:block">
-          <div style="padding:6px;font-size:11px;font-weight:600;text-align:center">KI-Konferenz (Ipai)</div>
-        </div>
-        <div class="image-picker-item" onclick="selectPickerImage('assets/foodtruck_festival.png', 'Foodtruck')" style="cursor:pointer;border:1px solid var(--border)">
-          <img src="assets/foodtruck_festival.png" style="width:100%;height:80px;object-fit:cover;display:block">
-          <div style="padding:6px;font-size:11px;font-weight:600;text-align:center">Foodtruck-Festival</div>
-        </div>
-        <div class="image-picker-item" onclick="selectPickerImage('assets/sport_event.png', 'Sportevent')" style="cursor:pointer;border:1px solid var(--border)">
-          <img src="assets/sport_event.png" style="width:100%;height:80px;object-fit:cover;display:block">
-          <div style="padding:6px;font-size:11px;font-weight:600;text-align:center">Sportevent (SV HN)</div>
-        </div>
-      </div>
-    </div>
-    <div class="modal__footer">
-      <button class="btn" onclick="closeImagePicker()">Abbrechen</button>
-    </div>
-  </div>
-</div>
-
-<!-- ═══════════════ ADD IDEA MODAL ═══════════════ -->
-<div class="modal-overlay" id="add-idea-overlay" style="display:none">
-  <div class="modal" style="width: 500px">
-    <div class="modal__header">
-      <span>Idee / Vorläufiges Event erfassen</span>
-      <button class="modal__close" onclick="closeAddIdeaModal()">✕</button>
-    </div>
-    <div class="modal__body">
-      <div style="display:flex;flex-direction:column;gap:12px">
-        <div>
-          <label style="font-weight:600;font-size:12px;margin-bottom:4px;display:block">Titel / Name des Events</label>
-          <input type="text" id="idea-title" placeholder="z.B. Weindorf Afterparty 2026" style="width:100%;padding:6px;border:1px solid var(--border);border-radius:var(--radius);outline:none">
-        </div>
-        <div>
-          <label style="font-weight:600;font-size:12px;margin-bottom:4px;display:block">Art des Beitrags</label>
-          <select id="idea-type" style="width:100%;padding:6px;border:1px solid var(--border);border-radius:var(--radius);outline:none">
-            <option value="preliminary" selected>Vorläufige Event-Information / Unfertige Idee</option>
-            <option value="full">Vollwertiger Artikel von Webseite (z.B. stimme.de)</option>
-          </select>
-        </div>
-        <div>
-          <label style="font-weight:600;font-size:12px;margin-bottom:4px;display:block">Beschreibung / Vorläufige Daten (KI extrahiert Details)</label>
-          <textarea id="idea-desc" rows="4" placeholder="Gib hier Details ein, z.B.: Afterparty findet im K2 statt, Datum steht noch nicht ganz fest, Eintritt ca. 5 Euro, Kooperation mit Weingütern..." style="width:100%;padding:6px;border:1px solid var(--border);border-radius:var(--radius);font-family:var(--font);font-size:13px;resize:vertical;outline:none"></textarea>
-        </div>
-        <div>
-          <label style="font-weight:600;font-size:12px;margin-bottom:4px;display:block">Bild hochladen (optional)</label>
-          <div class="img-placeholder img-placeholder--sm img-preview-container" id="idea-img-container" onclick="triggerImagePicker(this)" style="height:100px">
-            <span class="img-placeholder__icon">📷</span>
-            <span class="img-placeholder__label">Klicken, um Bild auszuwählen</span>
-            <div class="img-upload-overlay">➕ Bild hinzufügen</div>
+            <label
+              style="font-weight:600;font-size:12px;margin-bottom:4px;display:block">Veröffentlichungszeitpunkt</label>
+            <select id="publish-schedule"
+              style="width:100%;padding:6px;border:1px solid var(--border);border-radius:var(--radius);outline:none">
+              <option value="now" selected>Sofort veröffentlichen</option>
+              <option value="schedule_1h">In 1 Stunde planen</option>
+              <option value="schedule_evening">Heute Abend planen (18:00)</option>
+              <option value="schedule_tomorrow">Morgen früh planen (08:00)</option>
+            </select>
           </div>
         </div>
       </div>
-    </div>
-    <div class="modal__footer">
-      <button class="btn" onclick="closeAddIdeaModal()">Schließen</button>
-      <button class="btn btn--primary" onclick="handleAddIdea()">🤖 Extrahieren &amp; Speichern</button>
+      <div class="modal__footer">
+        <button class="btn" onclick="closePublishModal()">Abbrechen</button>
+        <button class="btn btn--primary" onclick="handleConfirmPublish()">🚀 Beitrag veröffentlichen</button>
+      </div>
     </div>
   </div>
-</div>
 
-<!-- ═══════════════ AI GENERATION MODAL ═══════════════ -->
-<div class="modal-overlay" id="ai-generation-overlay" style="display:none">
-  <div class="modal" style="width: 550px">
-    <div class="modal__header">
-      <span>🤖 KI-Post-Generator (Formular)</span>
-      <button class="modal__close" onclick="closeAiGenerationModal()">✕</button>
-    </div>
-    <div class="modal__body">
-      <div id="ai-form-container" style="display:flex;flex-direction:column;gap:12px">
-        <div>
-          <label style="font-weight:600;font-size:12px;margin-bottom:4px;display:block">Zielgruppe / Persona</label>
-          <select id="ai-persona-select" style="width:100%;padding:6px;border:1px solid var(--border);border-radius:var(--radius);outline:none">
-            <!-- Rendered by JS -->
-          </select>
-        </div>
-        <div>
-          <label style="font-weight:600;font-size:12px;margin-bottom:4px;display:block">Plattformen auswählen</label>
-          <div style="display:flex;gap:8px" id="ai-platform-toggles">
-            <button class="btn platform-toggle btn--active btn--primary" data-platform="tiktok" onclick="togglePlatformButton(this)">🎵 TikTok</button>
-            <button class="btn platform-toggle btn--active btn--primary" data-platform="instagram" onclick="togglePlatformButton(this)">📸 Instagram</button>
-            <button class="btn platform-toggle btn--active btn--primary" data-platform="facebook" onclick="togglePlatformButton(this)">📘 Facebook</button>
-          </div>
-        </div>
-        <div>
-          <label style="font-weight:600;font-size:12px;margin-bottom:4px;display:block">Quellartikel (optional)</label>
-          <select id="ai-article-select" onchange="fillTopicFromArticle(this)" style="width:100%;padding:6px;border:1px solid var(--border);border-radius:var(--radius);outline:none">
-            <option value="">-- Freie Texteingabe ohne Artikel --</option>
-            <!-- Rendered by JS -->
-          </select>
-        </div>
-        <div>
-          <label style="font-weight:600;font-size:12px;margin-bottom:4px;display:block">Thema / Leitidee der Posts</label>
-          <textarea id="ai-topic-desc" rows="3" placeholder="z.B. Einladung zum Heilbronner Weindorf 2026, Eintritt frei..." style="width:100%;padding:6px;border:1px solid var(--border);border-radius:var(--radius);font-family:var(--font);font-size:13px;resize:vertical;outline:none"></textarea>
-        </div>
-        <div>
-          <label style="font-weight:600;font-size:12px;margin-bottom:4px;display:block">Bild für Beitrags-Entwurf (optional)</label>
-          <div class="img-placeholder img-placeholder--sm img-preview-container" id="ai-img-container" onclick="triggerImagePicker(this)" style="height:100px">
-            <span class="img-placeholder__icon">📷</span>
-            <span class="img-placeholder__label">Klicken, um Bild auszuwählen</span>
-            <div class="img-upload-overlay">➕ Bild hinzufügen</div>
-          </div>
-        </div>
-      </div>
-      
-      <!-- AI Results Panel (Initially Hidden) -->
-      <div id="ai-results-container" style="display:none;margin-top:12px;border-top:1px solid var(--border-light);padding-top:12px">
-        <div style="font-weight:600;font-size:12px;margin-bottom:6px;color:var(--primary)">📄 KI-Generierte Entwürfe:</div>
-        <div style="display:flex;flex-direction:column;gap:10px;max-height: 250px;overflow-y:auto" id="ai-results-list"></div>
-      </div>
-    </div>
-    <div class="modal__footer">
-      <button class="btn" onclick="closeAiGenerationModal()">Schließen</button>
-      <button class="btn btn--primary" id="ai-gen-btn" onclick="handleAiGeneration()">⚡ KI-Beiträge entwerfen</button>
-      <button class="btn btn--primary" id="ai-save-btn" onclick="saveAiDrafts()" style="display:none">📤 Entwürfe übernehmen</button>
-    </div>
-  </div>
-</div>
+  <div class="toast-container" id="toast-container"></div>
 
-<!-- ═══════════════ SOURCES LIST MODAL ═══════════════ -->
-<div class="modal-overlay" id="sources-list-overlay" style="display:none">
-  <div class="modal" style="width: 600px; max-width: 95vw">
-    <div class="modal__header">
-      <span>🌐 Konfigurierte Scraping-Quellen</span>
-      <button class="modal__close" onclick="closeSourcesModal()">✕</button>
-    </div>
-    <div class="modal__body">
-      <!-- Add Source Inline Form -->
-      <div style="background:var(--surface-alt);border:1px solid var(--border-light);padding:12px;margin-bottom:16px;border-radius:var(--radius)">
-        <div style="font-weight:600;font-size:12px;margin-bottom:8px;color:var(--primary)">➕ Neue Quelle hinzufügen</div>
-        <div style="display:grid;grid-template-columns:1fr 1fr auto;gap:8px">
-          <input type="text" id="new-source-name" placeholder="Name (z.B. echo24 Sport)" style="padding:6px;font-size:12px;border:1px solid var(--border);border-radius:var(--radius);outline:none">
-          <input type="text" id="new-source-url" placeholder="URL (z.B. echo24.de/sport)" style="padding:6px;font-size:12px;border:1px solid var(--border);border-radius:var(--radius);outline:none">
-          <button class="btn btn--primary btn--sm" onclick="handleAddSource()" style="font-size:12px;font-weight:600">Hinzufügen</button>
-        </div>
-      </div>
-
-      <div class="section-label" style="margin-top:0">Aktive Scraping-Feeds</div>
-      <div class="table-container" style="max-height: 250px; overflow-y: auto; margin-bottom: 0">
-        <table>
-          <thead>
-            <tr style="position: sticky; top:0; background: var(--surface); z-index: 5">
-              <th>Quelle</th>
-              <th>URL</th>
-              <th>Zuletzt gescraped</th>
-              <th>Artikel</th>
-              <th>Status</th>
-            </tr>
-          </thead>
-          <tbody id="sources-tbody">
-            <!-- Rendered by JS -->
-          </tbody>
-        </table>
-      </div>
-    </div>
-    <div class="modal__footer">
-      <button class="btn" onclick="closeSourcesModal()">Schließen</button>
-    </div>
-  </div>
-</div>
-
-<!-- ═══════════════ PUBLISH ACCOUNT SELECTOR MODAL ═══════════════ -->
-<div class="modal-overlay" id="publish-account-overlay" style="display:none">
-  <div class="modal" style="width: 440px">
-    <div class="modal__header">
-      <span>📤 Kanal zum Veröffentlichen wählen</span>
-      <button class="modal__close" onclick="closePublishModal()">✕</button>
-    </div>
-    <div class="modal__body">
-      <p style="font-size:12px;color:var(--text-secondary);margin-bottom:12px">Wähle den offiziellen Kanal von Stimme / Echo24, auf dem der Beitrag veröffentlicht werden soll:</p>
-      <div style="display:flex;flex-direction:column;gap:12px">
-        <div>
-          <label style="font-weight:600;font-size:12px;margin-bottom:4px;display:block">Plattform</label>
-          <input type="text" id="publish-platform-display" readonly style="width:100%;padding:6px;border:1px solid var(--border);background:var(--surface);border-radius:var(--radius);font-weight:600;outline:none">
-        </div>
-        <div>
-          <label style="font-weight:600;font-size:12px;margin-bottom:4px;display:block">Kanal / Account</label>
-          <select id="publish-account-select" style="width:100%;padding:6px;border:1px solid var(--border);border-radius:var(--radius);outline:none">
-            <!-- Rendered by JS -->
-          </select>
-        </div>
-        <div>
-          <label style="font-weight:600;font-size:12px;margin-bottom:4px;display:block">Veröffentlichungszeitpunkt</label>
-          <select id="publish-schedule" style="width:100%;padding:6px;border:1px solid var(--border);border-radius:var(--radius);outline:none">
-            <option value="now" selected>Sofort veröffentlichen</option>
-            <option value="schedule_1h">In 1 Stunde planen</option>
-            <option value="schedule_evening">Heute Abend planen (18:00)</option>
-            <option value="schedule_tomorrow">Morgen früh planen (08:00)</option>
-          </select>
-        </div>
-      </div>
-    </div>
-    <div class="modal__footer">
-      <button class="btn" onclick="closePublishModal()">Abbrechen</button>
-      <button class="btn btn--primary" onclick="handleConfirmPublish()">🚀 Beitrag veröffentlichen</button>
-    </div>
-  </div>
-</div>
-
-<div class="toast-container" id="toast-container"></div>
-
-<script src="app.js"></script>
+  <script src="app.js"></script>
 </body>
+
 </html>
